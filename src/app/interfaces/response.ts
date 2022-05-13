@@ -1,5 +1,5 @@
 export interface Response {
-  body: object;
-  message: string;
-  statut: number;
+    body: object;
+    message: string;
+    statut: number;
 }

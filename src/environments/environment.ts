@@ -3,10 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
-  apiAnimeUrl: 'http://localhost:8080/animes/',
-  backUrl: 'http://localhost:8080/',
-  version: '1.0.0',
+    production: false,
+    apiAnimeUrl: 'http://localhost:8080/animes/',
+    backUrl: 'http://localhost:8080/',
+    version: '1.0.0',
 };
 
 /*
