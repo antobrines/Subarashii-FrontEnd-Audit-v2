@@ -6,6 +6,7 @@ import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {AnimeService} from './../services/anime.service';
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FormControl} from '@angular/forms';
+import { Meta, MetaDefinition } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-anime',
@@ -32,7 +33,8 @@ export class AnimeComponent implements OnInit {
         private datePipe: DatePipe,
         private commentS: CommentService,
         private router: Router,
-        private authS: AuthService
+        private authS: AuthService,
+        private metaService: Meta
     ) {
         this.idAnime = this.route.snapshot.paramMap.get('id');
     }
@@ -40,6 +42,7 @@ export class AnimeComponent implements OnInit {
     async ngOnInit() {
         const data: any = await this.animeS.get(this.idAnime);
         this.anime = data.body;
+        this.addTag()
         for (let index = 0; index < this.anime.nbSaison; index++) {
             this.saisons.push({
                 nbSaison: index + 1,
@@ -122,5 +125,11 @@ export class AnimeComponent implements OnInit {
         await this.commentS.addComment(data);
         this.comment.setValue('');
         this.getComment();
+    }
+
+    addTag() {
+        this.metaService.addTag({ name: 'description', content: 'Infos de l\'anime ' + this.anime.originalName });
+        this.metaService.addTag({ name: 'robots', content: 'index,follow' });
+        this.metaService.addTag({ name: 'title', content: this.anime.originalName });
     }
 }
