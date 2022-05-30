@@ -16,7 +16,7 @@
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input type="email" formControlName="email" class="form-control" id="email"
-                               aria-describedby="emailHelp" required>
+                            aria-describedby="emailHelp" required>
                     </div>
                     <div class="form-group">
                         <label for="password">Mot de passe</label>
@@ -25,6 +25,8 @@
                     <div class="btn-div text-center mt-sm-5">
                         <button type="submit" class="btn btn-main">Se connecter</button>
                         <div class="mt-1">
+                            <button class="f-size14 border-0 bg-transparent color-main" data-bs-toggle="modal"
+                                data-bs-target="#passForgottenModal">Mot de passe oublié</button><br>
                             <a routerLink="/register" class="f-size14">S'inscrire</a>
                         </div>
                     </div>
@@ -34,3 +36,30 @@
         </div>
     </div>
 </section>
+
+<div class="modal fade" id="passForgottenModal" tabindex="-1" aria-labelledby="passForgottenModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Mot de passe oublié</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="mt-4">
+                    <div class="form-group">
+                        <label for="user-email">Email</label>
+                        <input type="email" class="form-control" id="user-email" required>
+                    </div>
+                    <small class="d-block text-center">Veuillez indiquer votre adresse email afin que nous vous envoyons
+                        un
+                        email pour procéder au changement de votre mot de passe.</small>
+                </form>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-main">Valider</button>
+                <button type="button" class="btn btn-secondary rounded-0" data-bs-dismiss="modal">Annuler</button>
+            </div>
+        </div>
+    </div>
+</div>
