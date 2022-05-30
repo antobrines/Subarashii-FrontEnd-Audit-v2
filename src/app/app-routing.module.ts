@@ -6,6 +6,7 @@ import {LoginComponent} from './user/login/login.component';
 import {RegisterComponent} from './user/register/register.component';
 import {AnimeComponent} from './anime/anime.component';
 import {AnimesListComponent} from './user/animes-list/animes-list.component';
+import { RpgdComponent } from './RGPD/rgpd.component';
 
 const routes: Routes = [
     {path: '', component: HomeComponent, canActivate: [AuthGuard]},
@@ -13,6 +14,7 @@ const routes: Routes = [
     {path: 'register', component: RegisterComponent},
     {path: 'anime/:id', component: AnimeComponent, canActivate: [AuthGuard]},
     {path: 'animes-list', component: AnimesListComponent, canActivate: [AuthGuard]},
+    {path: 'rgpd', component: RpgdComponent},
     {path: '**', redirectTo: ''},
 ];
 
