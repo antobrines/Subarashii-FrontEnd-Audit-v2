@@ -1,0 +1,13 @@
+section {
+    padding-top: 80px;
+    min-height: 94vh;
+}
+
+.stat-card {
+    border: 1px solid var(--main-color);
+}
+
+.title {
+    border-bottom: 2px solid var(--main-color);
+    color: var(--main-color);
+}
