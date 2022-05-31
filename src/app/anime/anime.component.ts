@@ -6,7 +6,7 @@ import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {AnimeService} from './../services/anime.service';
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import { Meta, MetaDefinition } from '@angular/platform-browser';
+import {Meta , Title} from '@angular/platform-browser';
 
 @Component({
     selector: 'app-anime',
@@ -34,7 +34,8 @@ export class AnimeComponent implements OnInit {
         private commentS: CommentService,
         private router: Router,
         private authS: AuthService,
-        private metaService: Meta
+        private metaService: Meta,
+        private title:Title
     ) {
         this.idAnime = this.route.snapshot.paramMap.get('id');
     }
@@ -130,6 +131,7 @@ export class AnimeComponent implements OnInit {
     addTag() {
         this.metaService.addTag({ name: 'description', content: 'Infos de l\'anime ' + this.anime.originalName });
         this.metaService.addTag({ name: 'robots', content: 'index,follow' });
-        this.metaService.addTag({ name: 'title', content: this.anime.originalName });
+        this.metaService.addTag({ property: 'og:title', content: this.anime.originalName });
+        this.title.setTitle(this.anime.originalName);
     }
 }
