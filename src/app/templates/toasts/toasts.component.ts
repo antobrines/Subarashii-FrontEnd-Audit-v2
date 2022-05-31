@@ -1,7 +1,7 @@
 import {firstValueFrom} from 'rxjs';
 import {ToastService} from './../../services/toast.service';
 import {Component, OnInit} from '@angular/core';
-import {toastInfo} from 'src/app/toast';
+import {ToastInfo} from 'src/app/toast';
 
 declare var bootstrap: any;
 
@@ -13,7 +13,7 @@ declare var bootstrap: any;
 export class ToastsComponent implements OnInit {
     myToast: any;
 
-    _toastInf!: toastInfo;
+    _toastInf!: ToastInfo;
 
     constructor(private toastS: ToastService) {
         this.toastS.toastStatut.subscribe((data) => (this.toastInf = data));

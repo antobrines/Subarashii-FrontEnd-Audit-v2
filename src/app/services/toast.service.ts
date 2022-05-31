@@ -14,7 +14,7 @@ export class ToastService {
     async activeToast(toastInfo: any) {
         const toast: any = document.getElementById('toast');
         toast.parentNode.style.zIndex = '99';
-        if (this.toastStatut.getValue() == true) {
+        if (this.toastStatut.getValue()) {
             return;
         }
         this.toastStatut.next(toastInfo);

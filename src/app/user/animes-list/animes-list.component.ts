@@ -1,4 +1,3 @@
-import {firstValueFrom} from 'rxjs';
 import {ListService} from './../../services/list.service';
 import {Component, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';

@@ -34,8 +34,6 @@ export class AuthService {
     }
 
     async register(data: any): Promise<boolean> {
-        let headers = new HttpHeaders();
-        headers = headers.set('Content-Type', 'application/json');
         const request = this.http.post(environment.backUrl + 'users/sign-up', data);
         try {
             const res = await firstValueFrom(request);
