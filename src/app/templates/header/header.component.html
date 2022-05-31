@@ -27,7 +27,7 @@
             </ul>
             <div class="search-input d-flex position-relative w-100">
                 <img src="../../../assets/img/SVG/search.svg">
-                <input type="text" class="form-control form-input m-0" (keyup.enter)="onEnter()" id="search"
+                <input type="text" class="form-control form-input m-0" (keyup)="onEnter()" id="search"
                        [(ngModel)]="search">
             </div>
         </div>
@@ -46,7 +46,7 @@
             <div class="col-6 d-flex justify-content-end align-items-center">
                 <div class="search-input d-flex position-relative me-5">
                     <img src="../../../assets/img/SVG/search.svg">
-                    <input type="text" class="form-control form-input m-0" (keyup.enter)="onEnter()" id="search"
+                    <input type="text" class="form-control form-input m-0" (keyup)="onEnter()" id="search"
                            [(ngModel)]="search">
                 </div>
 

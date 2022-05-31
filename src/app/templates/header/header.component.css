@@ -32,6 +32,10 @@
     margin-bottom: 0 !important;
 }
 
+.search-input input:focus {
+    padding-right: 70px;
+}
+
 /* Responsive */
 
 @media only screen and (max-width: 992px) {
