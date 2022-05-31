@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg d-block d-lg-none d-xl-none navbar-light">
     <div class="container">
-        <a class="navbar-brand"><img src="../../../assets/img/logo-simple.png" class="logo"></a>
+        <a class="navbar-brand"><img src="../../../assets/img/logo-simple.png" class="logo" alt="Logo"></a>
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
             aria-label="Toggle navigation">
@@ -10,40 +10,41 @@
             <ul class="navbar-nav me-auto my-2 mb-lg-0">
                 <hr class="bg-main my-2">
                 <li class="d-flex align-items-center mb-1">
-                    <img src="../../../assets/img/SVG/eye.svg" width="20">
+                    <img src="../../../assets/img/SVG/eye.svg" width="20" alt="Oeil">
                     <a class="item-nav mx-2" routerLink="/">Découvrir</a>
                 </li>
                 <hr class="bg-main my-2">
                 <li class="d-flex align-items-center mb-1">
-                    <img src="../../../assets/img/SVG/heart.svg" width="20">
+                    <img src="../../../assets/img/SVG/heart.svg" width="20" alt="Coeur">
                     <a class="item-nav mx-2" [routerLink]="['/animes-list']">Mes Animés</a>
                 </li>
                 <hr class="bg-main my-2">
                 <li class="d-flex align-items-center mb-1">
-                    <img src="../../../assets/img/SVG/profile.svg" width="20">
+                    <img src="../../../assets/img/SVG/profile.svg" width="20" alt="Icone profil">
                     <button class="item-nav mx-2 p-0 bg-transparent border-0" type="button" data-bs-toggle="modal"
                         data-bs-target="#userInfoModal">Mes informations</button>
                 </li>
                 <hr class="bg-main my-2">
                 <li class="d-flex align-items-center mb-1">
-                    <img src="../../../assets/img/SVG/statistics.svg" width="20">
+                    <img src="../../../assets/img/SVG/statistics.svg" width="20" alt="Icone statistiques">
                     <a class="item-nav mx-2" [routerLink]="['/statistics']">Mes statistiques</a>
                 </li>
                 <hr class="bg-main my-2">
                 <li class="d-flex align-items-center mb-1">
-                    <img src="../../../assets/img/SVG/notification.svg" width="20">
+                    <img src="../../../assets/img/SVG/notification.svg" width="20" alt="Icone notification">
                     <button class="item-nav mx-2 p-0 bg-transparent border-0" type="button" data-bs-toggle="modal"
                         data-bs-target="#notificationsModal">Notifications</button>
                 </li>
                 <hr class="bg-main my-2">
                 <li class="d-flex align-items-center mb-1" (click)="logout()">
-                    <img src="../../../assets/img/SVG/logout.svg" width="20">
+                    <img src="../../../assets/img/SVG/logout.svg" width="20" alt="Image de déconnexion">
                     <a class="item-nav mx-2">Déconnexion</a>
                 </li>
                 <hr class="bg-main my-2">
             </ul>
             <div class="search-input d-flex position-relative w-100">
-                <img src="../../../assets/img/SVG/search.svg">
+                <img src="../../../assets/img/SVG/search.svg"
+                    alt="Bouton loupe pour rechercher selon le critère rentré">
                 <input type="text" class="form-control form-input m-0" (keyup.enter)="onEnter()" id="search"
                     [(ngModel)]="search">
             </div>
@@ -55,14 +56,16 @@
     <div class="container">
         <div class="row w-100">
             <div class="col-6 d-flex align-items-center">
-                <a class="me-5" routerLink="/"><img src="../../../assets/img/logo-simple.png" class="logo"></a>
+                <a class="me-5" routerLink="/"><img src="../../../assets/img/logo-simple.png" class="logo"
+                        alt="Logo"></a>
                 <a class="item-nav pe-2" routerLink="/">Découvrir</a>
                 <a class="item-nav" [routerLink]="['/animes-list']">Mes Animés</a>
             </div>
 
             <div class="col-6 d-flex justify-content-end align-items-center">
                 <div class="search-input d-flex position-relative me-4">
-                    <img src="../../../assets/img/SVG/search.svg">
+                    <img src="../../../assets/img/SVG/search.svg"
+                        alt="Bouton loupe pour rechercher selon le critère rentré">
                     <input type="text" class="form-control form-input m-0" (keyup.enter)="onEnter()" id="search"
                         [(ngModel)]="search">
                 </div>
@@ -70,7 +73,7 @@
                 <button
                     class="hover-zoom d-flex flex-column align-items-center position-relative cursorPointer bg-transparent border-0 p-0"
                     title="Notifications" type="button" data-bs-toggle="modal" data-bs-target="#notificationsModal">
-                    <img src="../../../assets/img/SVG/notification.svg" width="40" height="40">
+                    <img src="../../../assets/img/SVG/notification.svg" width="40" height="40" alt="Icone notification">
                     <div
                         class="position-absolute end-0 rounded-circle bg-main text-white d-flex align-items-center justify-content-center border border-light w-50 h-50">
                         0</div>
@@ -79,7 +82,7 @@
                 <div class="dropdown ms-4">
                     <a class="hover-zoom d-flex flex-column align-items-center cursorPointer" title="Mon Compte"
                         id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="../../../assets/img/SVG/profile.svg" width="40" height="40">
+                        <img src="../../../assets/img/SVG/profile.svg" width="40" height="40" alt="Icone profil">
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                         <li><button class="dropdown-item cursorPointer" type="button" data-bs-toggle="modal"
@@ -141,8 +144,9 @@
                 <div class="d-flex align-items-center justify-content-between py-2 px-3 border-top-main"
                     *ngFor="let notification of notifications">
                     <div>
-                        <b><img src="../../../assets/img/SVG/notification.svg" width="16" height="16"> {{
-                            notification.type }}</b>
+                        <strong><img src="../../../assets/img/SVG/notification.svg" width="16" height="16"
+                                alt="Icone notification"> {{
+                            notification.type }}</strong>
                         <p class="m-0">{{ notification.message }}</p>
                     </div>
                     <div>
