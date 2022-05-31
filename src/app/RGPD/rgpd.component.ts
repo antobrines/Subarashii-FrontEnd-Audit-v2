@@ -1,5 +1,4 @@
-import {Component, OnInit} from '@angular/core';
-import { CommonModule } from '@angular/common'
+import {Component} from '@angular/core';
 
 @Component({
     selector: 'app-rgpd',
@@ -170,8 +169,4 @@ export class RpgdComponent  {
         },]
     },
     ]
-
-    constructor() {}
-
-    //implements OnInit ngOnInit();
 }
