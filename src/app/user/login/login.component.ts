@@ -8,7 +8,7 @@ import {AuthService} from 'src/app/services/auth.service';
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.css'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
     loginForm = new FormGroup({
         email: new FormControl('', [Validators.required]),
         password: new FormControl('', [
@@ -19,9 +19,6 @@ export class LoginComponent implements OnInit {
     message = '';
 
     constructor(private authS: AuthService, private router: Router) {
-    }
-
-    ngOnInit(): void {
     }
 
     async login() {

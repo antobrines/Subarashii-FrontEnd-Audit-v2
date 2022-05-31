@@ -2,12 +2,7 @@ import {ListService} from './../services/list.service';
 import {Component, OnInit} from '@angular/core';
 import {AnimeService} from '../services/anime.service';
 import {DatePipe} from '@angular/common';
-import {
-    ActivatedRoute,
-    NavigationEnd,
-    Router,
-    RouterEvent,
-} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {firstValueFrom} from 'rxjs';
 
 @Component({
@@ -82,7 +77,7 @@ export class HomeComponent implements OnInit {
     }
 
     mergeObject() {
-        const data = {
+        return {
             ...{sort_by: this.orderBy},
             ...{page: this.page},
             ...{include_adult: this.include_adult},
@@ -90,11 +85,10 @@ export class HomeComponent implements OnInit {
             ...{with_original_language: 'ja'},
             ...{with_genres: this.genders.join(',')},
         };
-        return data;
     }
 
     async onScroll() {
-        await this.getAllAnime(await this.mergeObject());
+        await this.getAllAnime(this.mergeObject());
     }
 
     resetValue() {
@@ -114,7 +108,7 @@ export class HomeComponent implements OnInit {
         } else {
             delete this.search.statusTarget;
         }
-        await this.getAllAnime(await this.mergeObject());
+        await this.getAllAnime(this.mergeObject());
     }
 
     async changeRating(event: any) {
@@ -141,7 +135,7 @@ export class HomeComponent implements OnInit {
                 this.adult = false;
             }
         }
-        await this.getAllAnime(await this.mergeObject());
+        await this.getAllAnime(this.mergeObject());
     }
 
     changeDate(date: Date): any {
@@ -149,7 +143,7 @@ export class HomeComponent implements OnInit {
     }
 
     async addAnimeList(idAnime: number, idList: number) {
-        const data = await this.listS.addAnimeList(idAnime, idList);
+        await this.listS.addAnimeList(idAnime, idList);
         this.myAnimeIdSeeList.push(idAnime);
     }
 
@@ -161,6 +155,6 @@ export class HomeComponent implements OnInit {
         } else {
             this.genders.splice(this.genders.indexOf(idApi), 1);
         }
-        await this.getAllAnime(await this.mergeObject());
+        await this.getAllAnime(this.mergeObject());
     }
 }

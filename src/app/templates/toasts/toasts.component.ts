@@ -1,4 +1,3 @@
-import {firstValueFrom} from 'rxjs';
 import {ToastService} from './../../services/toast.service';
 import {Component, OnInit} from '@angular/core';
 import {ToastInfo} from 'src/app/toast';

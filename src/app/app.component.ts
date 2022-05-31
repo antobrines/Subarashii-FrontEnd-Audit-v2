@@ -1,6 +1,5 @@
 import {AuthGuard} from './services/auth.guard';
 import {Component,OnInit } from '@angular/core';
-import {environment} from 'src/environments/environment';
 import { Title, Meta } from '@angular/platform-browser';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { filter } from 'rxjs/operators';
