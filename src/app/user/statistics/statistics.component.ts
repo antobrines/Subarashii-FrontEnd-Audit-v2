@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { ChartData, ChartEvent, ChartType, ChartConfiguration } from 'chart.js';
+import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { ChartData, ChartType, ChartConfiguration } from 'chart.js';
+import {ResponseService} from '../../services/response.service';
+import { BaseChartDirective } from 'ng2-charts';
 
 @Component({
   selector: 'app-statistics',
@@ -7,22 +9,86 @@ import { ChartData, ChartEvent, ChartType, ChartConfiguration } from 'chart.js';
   styleUrls: ['./statistics.component.css']
 })
 export class StatisticsComponent implements OnInit {
+    @ViewChildren(BaseChartDirective) charts: QueryList<BaseChartDirective> | undefined;
+
+    public userStats: any = {};
+    public animesLabels: any = [];
+    public animesDatas: any = [];
+    public genresLabels: any = [];
+    public genresDatas: any = [];
+    public colors: any = ['#22243a', '#822e2e', '#c66d00', '#634d72', '#2d1a2d', '#533253', '#B66734', '#AF561E'];
+
+    public animesStats: any = {};
+    public commentsStats: any = {};
+    public nbAnimes: number = 0;
+
+    constructor(private responseS: ResponseService) {
+    }
+
+    async getStatistics() {
+        try {
+            const json = {
+                "commentsStat": {
+                    "nbComments": 3,
+                    "nbCommentsLiked": 2
+                },
+                "animesStat": {
+                    "timeWatched": 100,
+                    "nbEpisodesWatched": 3
+                },
+                "listAnimesStat": [
+                    {
+                        "name": "A voir",
+                        "nbAnime": 50
+                    },
+                    {
+                        "name": "En cours",
+                        "nbAnime": 14
+                    },
+                    {
+                        "name": "En attente",
+                        "nbAnime": 34
+                    },
+                    {
+                        "name": "Terminés",
+                        "nbAnime": 29
+                    }
+                ],
+                "genresStat": [
+                    {
+                        "name": "Fantastique",
+                        "nbTime": 41
+                    },
+                    {
+                        "name": "Drame",
+                        "nbTime": 31
+                    },
+                    {
+                        "name": "Comédie",
+                        "nbTime": 5
+                    },
+                    {
+                        "name": "Aventure",
+                        "nbTime": 51
+                    }
+                ]
+            };
+            return json;
+            
+        } catch (error) {
+            return this.responseS.ErrorF(error);
+        }
+    }
 
     // Animes Doughnut
     
-    public doughnutChartAnimesLabels: string[] = [ "A voir", "En cours", "En attente", "Terminés" ];
+    public doughnutChartAnimesLabels: string[] = [  ];
     public doughnutChartAnimesData: ChartData<'doughnut'> = {
-      labels: this.doughnutChartAnimesLabels,
-      datasets: [
-        { data: [ 350, 450, 100, 231 ],
-          backgroundColor: ['#22243a', '#822e2e', '#c66d00', '#634d72', '#2d1a2d', '#533253', '#B66734', '#AF561E'],
-          hoverBackgroundColor: ['#22243a', '#822e2e', '#c66d00', '#634d72', '#2d1a2d', '#533253', '#B66734', '#AF561E'],
-          hoverBorderColor: ['#22243a', '#822e2e', '#c66d00', '#634d72', '#2d1a2d', '#533253', '#B66734', '#AF561E']
-        }
-      ]
+      labels: [],
+      datasets: []
     };
 
-    public barChartAnimesOptions: ChartConfiguration['options'] = {
+    public doughnutChartAnimesOptions: ChartConfiguration['options'] = {
       responsive: true,
       maintainAspectRatio: false,
       plugins: {
@@ -36,20 +102,12 @@ export class StatisticsComponent implements OnInit {
 
     // Genres Doughnut
     
-    public doughnutChartGenresLabels: string[] = [ "Fantastique", "Drame", "Comédie", "Aventure" ];
     public doughnutChartGenresData: ChartData<'doughnut'> = {
-      labels: this.doughnutChartGenresLabels,
-      datasets: [
-        { data:[ 42, 31, 5, 51 ],
-          backgroundColor: ['#22243a', '#822e2e', '#c66d00', '#634d72', '#2d1a2d', '#533253', '#B66734', '#AF561E'],
-          hoverBackgroundColor: ['#22243a', '#822e2e', '#c66d00', '#634d72', '#2d1a2d', '#533253', '#B66734', '#AF561E'],
-          hoverBorderColor: ['#22243a', '#822e2e', '#c66d00', '#634d72', '#2d1a2d', '#533253', '#B66734', '#AF561E']
-        }
-          
-      ]
+      labels: [],
+      datasets: []
     };
 
-    public barChartGenresOptions: ChartConfiguration['options'] = {
+    public doughnutChartGenresOptions: ChartConfiguration['options'] = {
       responsive: true,
       maintainAspectRatio: false,
       plugins: {
@@ -60,18 +118,49 @@ export class StatisticsComponent implements OnInit {
     };
     
     public doughnutChartGenresType: ChartType = 'doughnut';
-    
-  
-    // events
-    public chartClicked({ event, active }: { event: ChartEvent, active: {}[] }): void {
-      console.log(event, active);
-    }
-  
-    public chartHovered({ event, active }: { event: ChartEvent, active: {}[] }): void {
-      console.log(event, active);
-    }
 
-    ngOnInit() {
+    async ngOnInit() {
+        this.userStats = await this.getStatistics();
+        this.animesStats = this.userStats.animesStat;
+        this.commentsStats = this.userStats.commentsStat;
+
+        for (var key in this.userStats.listAnimesStat) {
+            var obj = this.userStats.listAnimesStat[key];
+            this.animesLabels.push(obj.name);
+            this.animesDatas.push(obj.nbAnime);
+
+            this.nbAnimes += obj.nbAnime;
+        }
+        
+        this.doughnutChartAnimesData.labels = this.animesLabels;
+
+        this.doughnutChartAnimesData.datasets.push(
+            { data: this.animesDatas,
+                backgroundColor: this.colors,
+                hoverBackgroundColor: this.colors,
+                hoverBorderColor: this.colors
+            }
+        );
+
+        for (var key in this.userStats.genresStat) {
+            var obj = this.userStats.genresStat[key];
+            this.genresLabels.push(obj.name);
+            this.genresDatas.push(obj.nbTime);
+        }
+
+        this.doughnutChartGenresData.labels = this.genresLabels;
+        
+        this.doughnutChartGenresData.datasets.push(
+            { data: this.genresDatas,
+                backgroundColor: this.colors,
+                hoverBackgroundColor: this.colors,
+                hoverBorderColor: this.colors
+            }
+        );
+
+        this.charts?.forEach((chart) => {
+            chart.update();
+        })
         
     }
 
