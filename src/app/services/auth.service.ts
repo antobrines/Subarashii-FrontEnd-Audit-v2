@@ -58,9 +58,10 @@ export class AuthService {
         window.location.href = '/login';
     }
 
-    public userConnected(): string {
+    public userConnected(): any {
         const token: any = localStorage.getItem('token');
         const decodedToken: any = jwt_decode(token, {header: true});
-        return decodedToken.username;
+        return decodedToken;
     }
+
 }
