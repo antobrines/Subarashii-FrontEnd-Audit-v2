@@ -29,20 +29,16 @@ export class HeaderComponent implements OnInit {
     }
 
     async getNotifications() {
-        try {
-            return [
-                {
-                    type: 'Notification 1',
-                    message: 'Description notification 1',
-                },
-                {
-                    type: 'Notification 2',
-                    message: 'Description notification 2',
-                },
-            ];
-        } catch (error) {
-            return this.responseS.ErrorF(error);
-        }
+        return [
+            {
+                type: 'Notification 1',
+                message: 'Description notification 1',
+            },
+            {
+                type: 'Notification 2',
+                message: 'Description notification 2',
+            },
+        ];
     }
 
     async getUser() {

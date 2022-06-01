@@ -1,6 +1,5 @@
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { ChartData, ChartType, ChartConfiguration } from 'chart.js';
-import { ResponseService } from '../../services/response.service';
 import { BaseChartDirective } from 'ng2-charts';
 
 @Component({
@@ -33,59 +32,55 @@ export class StatisticsComponent implements OnInit {
     public commentsStats: any = {};
     public nbAnimes: number = 0;
 
-    constructor(private responseS: ResponseService) {}
+    constructor() {}
 
     async getStatistics() {
-        try {
-            return {
-                commentsStat: {
-                    nbComments: 3,
-                    nbCommentsLiked: 2,
+        return {
+            commentsStat: {
+                nbComments: 3,
+                nbCommentsLiked: 2,
+            },
+            animesStat: {
+                timeWatched: 100,
+                nbEpisodesWatched: 3,
+            },
+            listAnimesStat: [
+                {
+                    name: 'A voir',
+                    nbAnime: 50,
                 },
-                animesStat: {
-                    timeWatched: 100,
-                    nbEpisodesWatched: 3,
+                {
+                    name: 'En cours',
+                    nbAnime: 14,
                 },
-                listAnimesStat: [
-                    {
-                        name: 'A voir',
-                        nbAnime: 50,
-                    },
-                    {
-                        name: 'En cours',
-                        nbAnime: 14,
-                    },
-                    {
-                        name: 'En attente',
-                        nbAnime: 34,
-                    },
-                    {
-                        name: 'Terminés',
-                        nbAnime: 29,
-                    },
-                ],
-                genresStat: [
-                    {
-                        name: 'Fantastique',
-                        nbTime: 41,
-                    },
-                    {
-                        name: 'Drame',
-                        nbTime: 31,
-                    },
-                    {
-                        name: 'Comédie',
-                        nbTime: 5,
-                    },
-                    {
-                        name: 'Aventure',
-                        nbTime: 51,
-                    },
-                ],
-            };
-        } catch (error) {
-            return this.responseS.ErrorF(error);
-        }
+                {
+                    name: 'En attente',
+                    nbAnime: 34,
+                },
+                {
+                    name: 'Terminés',
+                    nbAnime: 29,
+                },
+            ],
+            genresStat: [
+                {
+                    name: 'Fantastique',
+                    nbTime: 41,
+                },
+                {
+                    name: 'Drame',
+                    nbTime: 31,
+                },
+                {
+                    name: 'Comédie',
+                    nbTime: 5,
+                },
+                {
+                    name: 'Aventure',
+                    nbTime: 51,
+                },
+            ],
+        };
     }
 
     // Animes Doughnut
