@@ -1,4 +1,3 @@
-import { AuthGuard } from './services/auth.guard';
 import { Component } from '@angular/core';
 
 @Component({
@@ -9,7 +8,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
     title = 'subarashii';
     public showTemplate: boolean = true;
-    private urls = ['/login', '/register', '/banned'];
+    private urls = ['/login', '/register'];
 
     constructor() {
         this.showTemplate = !this.urls.includes(location.pathname);
