@@ -32,4 +32,9 @@ export class HeaderComponent implements OnInit {
     logout() {
         this.authS.logout();
     }
+
+    resetSearch() {
+        this.search = '';
+        this.onEnter();
+    }
 }

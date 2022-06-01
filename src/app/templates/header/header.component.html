@@ -29,6 +29,9 @@
                 <img src="../../../assets/img/SVG/search.svg">
                 <input type="text" class="form-control form-input m-0" (keyup)="onEnter()" id="search"
                        [(ngModel)]="search">
+                <div class="reset-search" (click)="resetSearch()">
+                    <span>x</span>
+                </div>
             </div>
         </div>
     </div>
@@ -48,6 +51,9 @@
                     <img src="../../../assets/img/SVG/search.svg">
                     <input type="text" class="form-control form-input m-0" (keyup)="onEnter()" id="search"
                            [(ngModel)]="search">
+                    <div class="reset-search" (click)="resetSearch()">
+                        <span>x</span>
+                    </div>
                 </div>
 
                 <div class="dropdown">
