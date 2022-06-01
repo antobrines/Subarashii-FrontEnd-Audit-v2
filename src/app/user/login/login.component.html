@@ -26,8 +26,9 @@
                     <div class="btn-div text-center mt-sm-5">
                         <button type="submit" class="btn btn-main">Se connecter</button>
                         <div class="mt-1">
-                            <button class="f-size14 border-0 bg-transparent color-main" data-bs-toggle="modal"
-                                data-bs-target="#passForgottenModal">Mot de passe oublié</button><br>
+                            <button type="button" class="f-size14 border-0 bg-transparent color-main"
+                                data-bs-toggle="modal" data-bs-target="#passForgottenModal">Mot de passe
+                                oublié</button><br>
                             <a routerLink="/register" class="f-size14">S'inscrire</a>
                         </div>
                     </div>
@@ -50,7 +51,7 @@
                 <form class="mt-4">
                     <div class="form-group">
                         <label for="user-email">Email</label>
-                        <input type="email" class="form-control" id="user-email" required>
+                        <input type="email" [formControl]="emailReset" class="form-control" id="user-email" required>
                     </div>
                     <small class="d-block text-center">Veuillez indiquer votre adresse email afin que nous vous envoyons
                         un
@@ -58,7 +59,8 @@
                 </form>
             </div>
             <div class="modal-footer justify-content-center">
-                <button type="button" class="btn btn-main">Valider</button>
+                <button type="button" (click)="forgotPassword()" class="btn btn-main"
+                    data-bs-dismiss="modal">Valider</button>
                 <button type="button" class="btn btn-secondary rounded-0" data-bs-dismiss="modal">Annuler</button>
             </div>
         </div>

@@ -9,6 +9,7 @@ import { AnimesListComponent } from './user/animes-list/animes-list.component';
 import { StatisticsComponent } from './user/statistics/statistics.component';
 import { BannedComponent } from './user/banned/banned.component';
 import { RpgdComponent } from './RGPD/rgpd.component';
+import { ResetPasswordComponent } from './user/reset-password/reset-password.component';
 
 const routes: Routes = [
     {
@@ -66,10 +67,13 @@ const routes: Routes = [
     {
         path: 'banned',
         component: BannedComponent,
-        canActivate: [AuthGuard],
         data: {
             title: 'Subarashii - Ban',
         },
+    },
+    {
+        path: 'users/callback',
+        component: ResetPasswordComponent,
     },
     { path: '**', redirectTo: '' },
 ];

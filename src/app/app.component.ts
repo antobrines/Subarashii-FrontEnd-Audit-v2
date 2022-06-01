@@ -11,7 +11,7 @@ import { filter } from 'rxjs/operators';
 export class AppComponent implements OnInit {
     title = 'subarashii';
     public showTemplate: boolean = true;
-    private urls = ['/login', '/register', '/banned'];
+    private urls = ['/login', '/register', '/banned', '/users/callback'];
 
     constructor(
         private router: Router,

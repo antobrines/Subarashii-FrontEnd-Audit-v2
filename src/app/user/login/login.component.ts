@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {AuthService} from 'src/app/services/auth.service';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
     selector: 'app-login',
@@ -17,12 +17,18 @@ export class LoginComponent implements OnInit {
         ]),
     });
     message = '';
+    public emailReset = new FormControl();
 
-    constructor(private authS: AuthService, private router: Router) {
+    constructor(private authS: AuthService, private router: Router) {}
+
+    async forgotPassword() {
+        const email = this.emailReset.value;
+        await this.authS.forgotPassword({
+            email: email,
+        });
     }
 
-    ngOnInit(): void {
-    }
+    ngOnInit(): void {}
 
     async login() {
         const result = await this.authS.login(this.loginForm.value);

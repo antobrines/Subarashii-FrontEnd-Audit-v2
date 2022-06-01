@@ -22,6 +22,7 @@ import { StatisticsComponent } from './user/statistics/statistics.component';
 import { NgChartsModule } from 'ng2-charts';
 import { BannedComponent } from './user/banned/banned.component';
 import { RpgdComponent } from './RGPD/rgpd.component';
+import { ResetPasswordComponent } from './user/reset-password/reset-password.component';
 
 export function tokenGetter() {
     return localStorage.getItem('token') ? localStorage.getItem('token') : '';
@@ -42,6 +43,7 @@ export function tokenGetter() {
         StatisticsComponent,
         BannedComponent,
         RpgdComponent,
+        ResetPasswordComponent,
     ],
     imports: [
         BrowserModule,
