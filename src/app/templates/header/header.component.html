@@ -45,8 +45,11 @@
             <div class="search-input d-flex position-relative w-100">
                 <img src="../../../assets/img/SVG/search.svg"
                     alt="Bouton loupe pour rechercher selon le critère rentré">
-                <input type="text" class="form-control form-input m-0" (keyup.enter)="onEnter()" id="search"
+                <input type="text" class="form-control form-input m-0" (keyup)="onEnter()" id="search"
                     [(ngModel)]="search">
+                <div class="reset-search" (click)="resetSearch()">
+                    <span>x</span>
+                </div>
             </div>
         </div>
     </div>
@@ -56,8 +59,7 @@
     <div class="container">
         <div class="row w-100">
             <div class="col-6 d-flex align-items-center">
-                <a class="me-5" routerLink="/"><img src="../../../assets/img/logo-simple.png" class="logo"
-                        alt="Logo"></a>
+                <a class="me-5" routerLink="/"><img src="../../../assets/img/logo-simple.png" class="Logo simple"></a>
                 <a class="item-nav pe-2" routerLink="/">Découvrir</a>
                 <a class="item-nav" [routerLink]="['/animes-list']">Mes Animés</a>
             </div>
@@ -66,8 +68,11 @@
                 <div class="search-input d-flex position-relative me-4">
                     <img src="../../../assets/img/SVG/search.svg"
                         alt="Bouton loupe pour rechercher selon le critère rentré">
-                    <input type="text" class="form-control form-input m-0" (keyup.enter)="onEnter()" id="search"
+                    <input type="text" class="form-control form-input m-0" (keyup)="onEnter()" id="search"
                         [(ngModel)]="search">
+                    <div class="reset-search" (click)="resetSearch()">
+                        <span>x</span>
+                    </div>
                 </div>
 
                 <button
@@ -81,10 +86,10 @@
 
                 <div class="dropdown ms-4">
                     <a class="hover-zoom d-flex flex-column align-items-center cursorPointer" title="Mon Compte"
-                        id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="../../../assets/img/SVG/profile.svg" width="40" height="40" alt="Icone profil">
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <li><button class="dropdown-item cursorPointer" type="button" data-bs-toggle="modal"
                                 data-bs-target="#userInfoModal">Informations</button></li>
                         <li><a class="dropdown-item cursorPointer" [routerLink]="['/statistics']">Statistiques</a></li>

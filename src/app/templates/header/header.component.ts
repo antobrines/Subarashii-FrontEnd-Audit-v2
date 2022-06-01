@@ -66,12 +66,15 @@ export class HeaderComponent implements OnInit {
     onEnter() {
         this.router
             .navigate(['/'], { queryParams: { search: this.search } })
-            .then(() => {
-                window.location.reload();
-            });
+            .then();
     }
 
     logout() {
         this.authS.logout();
+    }
+
+    resetSearch() {
+        this.search = '';
+        this.onEnter();
     }
 }
