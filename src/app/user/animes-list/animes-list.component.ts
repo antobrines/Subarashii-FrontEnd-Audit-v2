@@ -24,7 +24,7 @@ export class AnimesListComponent implements OnInit {
 
     async ngOnInit() {
         await this.getMyList();
-        const idAvoir: any = this.myList.filter((el) => el.nom == 'A voir');
+        const idAvoir: any = this.myList.filter((el) => el.label == 'A voir');
 
         await this.getAnimeList(idAvoir[0].id);
         this.initializeIdList(idAvoir[0].id);
@@ -36,7 +36,7 @@ export class AnimesListComponent implements OnInit {
 
     async addList() {
         const name = this.name.value;
-        const data = await this.listS.addList({nom: name});
+        const data = await this.listS.addList({label: name});
         this.name.setValue('');
         await this.getMyList();
     }

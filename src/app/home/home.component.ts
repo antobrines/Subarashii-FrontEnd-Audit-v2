@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
     private search: any = {};
     private include_adult: boolean = false;
     private totalPage: number = 1;
-    private url: string = 'fullsearch';
+    private url: string = '';
     private genders: string[] = ['16'];
     public dataObject: any = {};
     public animes: any = [];
@@ -57,8 +57,9 @@ export class HomeComponent implements OnInit {
         await this.getAllAnime(this.mergeObject());
     }
 
-    async getAllAnime(data: object = {}) {
+    async getAllAnime(data: any = {}) {
         this.loading = true;
+        if(data?.status === undefined) delete data.status
         if (this.totalPage >= this.page) {
             try {
                 const dataObject: any = await this.apiA.get(this.url, data);
@@ -77,14 +78,14 @@ export class HomeComponent implements OnInit {
 
     mergeObject() {
         return {
-            ...{sort_by: this.orderBy},
             ...{page: this.page},
-            ...{include_adult: this.include_adult},
-            ...{with_status: this.search.status},
-            ...{with_original_language: 'ja'},
-            ...{with_genres: this.genders.join(',')},
+            ...{adult: this.include_adult},
+            ...{status: this.search.status},
+            ...{categories: this.genders.join(',')},
         };
     }
+    //...{sort_by: this.orderBy},
+    //...{with_original_language: 'ja'},
 
     async onScroll() {
         await this.getAllAnime(this.mergeObject());

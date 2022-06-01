@@ -22,7 +22,7 @@ export class AuthInterceptor implements HttpInterceptor {
         const idToken = this.jwtHelper.tokenGetter();
         if (idToken) {
             const cloned = request.clone({
-                headers: request.headers.set('Authorization', idToken),
+                headers: request.headers.set('Authorization', `Bearer ${idToken}`),
             });
             return next.handle(cloned);
         } else {

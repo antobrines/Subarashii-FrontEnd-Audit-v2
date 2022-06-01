@@ -4,8 +4,8 @@
 
 export const environment = {
     production: false,
-    apiAnimeUrl: 'https://subarashii-backend.vercel.app/API/animes', //http://localhost:8080/animes/',
-    backUrl: 'https://subarashii-backend.vercel.app/API/', //http://localhost:8080/',
+    apiAnimeUrl: 'https://subarashii-backend.vercel.app/api/animes', //http://localhost:8080/animes/',
+    backUrl: 'https://subarashii-backend.vercel.app/api/', //http://localhost:8080/',
     version: '1.0.0',
 };
 
