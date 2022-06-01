@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/services/auth.service';
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.css'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
     loginForm = new FormGroup({
         email: new FormControl('', [Validators.required]),
         password: new FormControl('', [
@@ -27,8 +27,6 @@ export class LoginComponent implements OnInit {
             email: email,
         });
     }
-
-    ngOnInit(): void {}
 
     async login() {
         const result = await this.authS.login(this.loginForm.value);
