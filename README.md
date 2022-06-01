@@ -3,7 +3,7 @@
 
 <p align="center">
     <a href="#"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-    <a style="margin-left: 10px" href="https://angular.io/"><img src="https://angular.io/assets/images/logos/angular/shield-large.svg" width="20" alt="angular"></a>
+    <a style="margin-left: 10px" href="https://angular.io/"><img src="https://angular.io/assets/images/logos/angular/logo-nav@2x.png" height="20" alt="angular"></a>
 </p>
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.0.3.
