@@ -1,6 +1,6 @@
-import {AuthGuard} from './services/auth.guard';
-import {Component} from '@angular/core';
-import {environment} from 'src/environments/environment';
+import { AuthGuard } from './services/auth.guard';
+import { Component } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
     selector: 'app-root',
@@ -10,11 +10,11 @@ import {environment} from 'src/environments/environment';
 export class AppComponent {
     title = 'subarashii';
     public showTemplate: boolean = true;
-    private urls = ['/login', '/register'];
+    private urls = ['/login', '/register', '/banned'];
 
     constructor(private authG: AuthGuard) {
         this.showTemplate = !this.urls.includes(location.pathname);
     }
 
-  ngOnInit() {}
+    ngOnInit() {}
 }

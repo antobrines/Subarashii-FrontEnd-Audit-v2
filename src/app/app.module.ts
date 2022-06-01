@@ -20,6 +20,7 @@ import {GravatarModule} from 'ngx-gravatar';
 import {ToastsComponent} from './templates/toasts/toasts.component';
 import { StatisticsComponent } from './user/statistics/statistics.component';
 import { NgChartsModule } from 'ng2-charts';
+import { BannedComponent } from './user/banned/banned.component';
 
 export function tokenGetter() {
     return localStorage.getItem('token') ? localStorage.getItem('token') : '';
@@ -38,6 +39,7 @@ export function tokenGetter() {
         AnimesListComponent,
         ToastsComponent,
         StatisticsComponent,
+        BannedComponent,
     ],
     imports: [
         BrowserModule,
