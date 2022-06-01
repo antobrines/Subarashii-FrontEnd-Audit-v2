@@ -7,11 +7,11 @@
 </p>
 
 <p style="text-align: justify">
-    Subarashii is a library referencing all Japanese anime. On this site,
-    the user can search for anime and sort them by genre. He can then access 
-    the details of an anime. 
+    Subarashii is a library referencing all Japanese anime.
     <br><br>
-    A lot of information is available, such as summary, 
+    On this site,
+    the user can search for anime and sort them by genre. He can then access 
+    the details of an anime. A lot of information is available, such as summary, 
     genre, classification and status. He can leave a comment on this anime, check 
     off the episodes he has seen and add it to a list. There are five predefined 
     lists: Watch, In Progress, Pending, Done, and Favorites. It can also create
@@ -26,7 +26,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 npm install -g @angular/cli
 ```
 
-You also need to install project dependancies
+You also need to install project dependencies
 ```bash
 npm install
 ```
