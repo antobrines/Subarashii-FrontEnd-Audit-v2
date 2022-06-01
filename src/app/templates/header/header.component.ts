@@ -26,7 +26,7 @@ export class HeaderComponent implements OnInit {
     onEnter() {
         this.router
             .navigate(['/'], {queryParams: {search: this.search}})
-            .then(() => {});
+            .then();
     }
 
     logout() {
