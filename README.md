@@ -6,8 +6,6 @@
     <a style="margin-left: 10px" href="https://angular.io/"><img src="https://angular.io/assets/images/logos/angular/logo-nav@2x.png" height="20" alt="angular"></a>
 </p>
 
-## About Subarashii
-
 <p style="text-align: justify">
     Subarashii is a library referencing all Japanese anime. On this site,
     the user can search for anime and sort them by genre. He can then access 
