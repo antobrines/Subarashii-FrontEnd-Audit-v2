@@ -1,6 +1,10 @@
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { ChartData, ChartType, ChartConfiguration } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
+import { HttpClient } from '@angular/common/http';
+import { ResponseService } from '../../services/response.service';
+import { environment } from 'src/environments/environment';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
     selector: 'app-statistics',
@@ -32,53 +36,16 @@ export class StatisticsComponent implements OnInit {
     public commentsStats: any = {};
     public nbAnimes: number = 0;
 
+    constructor(private http: HttpClient, private responseS: ResponseService) {}
+
     async getStatistics() {
-        return {
-            commentsStat: {
-                nbComments: 3,
-                nbCommentsLiked: 2,
-            },
-            animesStat: {
-                timeWatched: 100,
-                nbEpisodesWatched: 3,
-            },
-            listAnimesStat: [
-                {
-                    name: 'A voir',
-                    nbAnime: 50,
-                },
-                {
-                    name: 'En cours',
-                    nbAnime: 14,
-                },
-                {
-                    name: 'En attente',
-                    nbAnime: 34,
-                },
-                {
-                    name: 'Terminés',
-                    nbAnime: 29,
-                },
-            ],
-            genresStat: [
-                {
-                    name: 'Fantastique',
-                    nbTime: 41,
-                },
-                {
-                    name: 'Drame',
-                    nbTime: 31,
-                },
-                {
-                    name: 'Comédie',
-                    nbTime: 5,
-                },
-                {
-                    name: 'Aventure',
-                    nbTime: 51,
-                },
-            ],
-        };
+        try {
+            const $get = this.http.get(environment.backUrl + 'stats');
+            const data: any = await firstValueFrom($get);
+            return data.body;
+        } catch (error) {
+            return this.responseS.ErrorF(error);
+        }
     }
 
     // Animes Doughnut
