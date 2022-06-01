@@ -52,8 +52,7 @@ export class HomeComponent implements OnInit {
             this.myAnimeIdSeeList = await this.listS.myAnimeIdSeeList();
             return;
         }
-        const dataObjet: any = await this.apiA.getGenres();
-        this.genres = dataObjet.body;
+        this.genres = this.apiA.genres;
         this.myAnimeIdSeeList = await this.listS.myAnimeIdSeeList();
         await this.getAllAnime(this.mergeObject());
     }
