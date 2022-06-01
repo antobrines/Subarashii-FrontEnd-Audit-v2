@@ -20,11 +20,11 @@ export class AuthService {
     async login(data: any): Promise<boolean> {
         try {
             const request = this.http.post(
-                environment.backUrl + 'users/sign-in',
+                environment.backUrl + 'users/login',
                 data
             );
             const dataRequest: any = await firstValueFrom(request);
-            localStorage.setItem('token', dataRequest.body.token);
+            localStorage.setItem('token', dataRequest.body);
             this.responseS.SuccessF(dataRequest);
             return true;
         } catch (error: any) {
@@ -34,7 +34,7 @@ export class AuthService {
     }
 
     async register(data: any): Promise<boolean> {
-        const request = this.http.post(environment.backUrl + 'users/sign-up', data);
+        const request = this.http.post(environment.backUrl + 'users/register', data);
         try {
             const res = await firstValueFrom(request);
             this.responseS.SuccessF(res);
