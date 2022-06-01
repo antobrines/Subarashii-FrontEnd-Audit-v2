@@ -114,7 +114,7 @@ export class AnimeComponent implements OnInit {
     }
 
     async getComment() {
-        this.username = this.authS.userConnected();
+        this.username = this.authS.userConnected()?.username;
         this.comments = await this.commentS.getComment(this.idAnime);
     }
 

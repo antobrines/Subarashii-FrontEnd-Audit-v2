@@ -8,8 +8,8 @@
             <div class="responsive-size col-lg-6 bg-white p-5">
                 <div>
                     <a class="d-flex flex-column align-items-center">
-                        <img src="../../../assets/img/SVG/profile.svg" width="50" height="50" 
-                        alt="Logo par défaut de l'utilisateur">
+                        <img src="../../../assets/img/SVG/profile.svg" width="50" height="50"
+                            alt="Logo par défaut de l'utilisateur">
                     </a>
                     <h1 class="text-center text-uppercase color-main font-architects-daughter mt-2">Connexion</h1>
                 </div>
@@ -17,7 +17,7 @@
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input type="email" formControlName="email" class="form-control" id="email"
-                               aria-describedby="emailHelp" required>
+                            aria-describedby="emailHelp" required>
                     </div>
                     <div class="form-group">
                         <label for="password">Mot de passe</label>
@@ -26,6 +26,9 @@
                     <div class="btn-div text-center mt-sm-5">
                         <button type="submit" class="btn btn-main">Se connecter</button>
                         <div class="mt-1">
+                            <button type="button" class="f-size14 border-0 bg-transparent color-main"
+                                data-bs-toggle="modal" data-bs-target="#passForgottenModal">Mot de passe
+                                oublié</button><br>
                             <a routerLink="/register" class="f-size14">S'inscrire</a>
                         </div>
                     </div>
@@ -35,3 +38,31 @@
         </div>
     </div>
 </section>
+
+<div class="modal fade" id="passForgottenModal" tabindex="-1" aria-labelledby="passForgottenModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Mot de passe oublié</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="mt-4">
+                    <div class="form-group">
+                        <label for="user-email">Email</label>
+                        <input type="email" [formControl]="emailReset" class="form-control" id="user-email" required>
+                    </div>
+                    <small class="d-block text-center">Veuillez indiquer votre adresse email afin que nous vous envoyons
+                        un
+                        email pour procéder au changement de votre mot de passe.</small>
+                </form>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" (click)="forgotPassword()" class="btn btn-main"
+                    data-bs-dismiss="modal">Valider</button>
+                <button type="button" class="btn btn-secondary rounded-0" data-bs-dismiss="modal">Annuler</button>
+            </div>
+        </div>
+    </div>
+</div>

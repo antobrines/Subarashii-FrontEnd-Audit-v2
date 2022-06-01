@@ -2,8 +2,8 @@
     <div class="container">
         <a class="navbar-brand"><img src="../../../assets/img/logo-simple.png" class="logo" alt="Logo"></a>
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse mt-2" id="navbarSupportedContent">
@@ -19,6 +19,23 @@
                     <a class="item-nav mx-2" [routerLink]="['/animes-list']">Mes Animés</a>
                 </li>
                 <hr class="bg-main my-2">
+                <li class="d-flex align-items-center mb-1">
+                    <img src="../../../assets/img/SVG/profile.svg" width="20" alt="Icone profil">
+                    <button class="item-nav mx-2 p-0 bg-transparent border-0" type="button" data-bs-toggle="modal"
+                        data-bs-target="#userInfoModal">Mes informations</button>
+                </li>
+                <hr class="bg-main my-2">
+                <li class="d-flex align-items-center mb-1">
+                    <img src="../../../assets/img/SVG/statistics.svg" width="20" alt="Icone statistiques">
+                    <a class="item-nav mx-2" [routerLink]="['/statistics']">Mes statistiques</a>
+                </li>
+                <hr class="bg-main my-2">
+                <li class="d-flex align-items-center mb-1">
+                    <img src="../../../assets/img/SVG/notification.svg" width="20" alt="Icone notification">
+                    <button class="item-nav mx-2 p-0 bg-transparent border-0" type="button" data-bs-toggle="modal"
+                        data-bs-target="#notificationsModal">Notifications</button>
+                </li>
+                <hr class="bg-main my-2">
                 <li class="d-flex align-items-center mb-1" (click)="logout()">
                     <img src="../../../assets/img/SVG/logout.svg" width="20" alt="Image de déconnexion">
                     <a class="item-nav mx-2">Déconnexion</a>
@@ -26,9 +43,10 @@
                 <hr class="bg-main my-2">
             </ul>
             <div class="search-input d-flex position-relative w-100">
-                <img src="../../../assets/img/SVG/search.svg" alt="Bouton loupe pour rechercher selon le critère rentré">
+                <img src="../../../assets/img/SVG/search.svg"
+                    alt="Bouton loupe pour rechercher selon le critère rentré">
                 <input type="text" class="form-control form-input m-0" (keyup)="onEnter()" id="search"
-                       [(ngModel)]="search">
+                    [(ngModel)]="search">
                 <div class="reset-search" (click)="resetSearch()">
                     <span>x</span>
                 </div>
@@ -47,27 +65,117 @@
             </div>
 
             <div class="col-6 d-flex justify-content-end align-items-center">
-                <div class="search-input d-flex position-relative me-5">
-                    <img src="../../../assets/img/SVG/search.svg"  alt="Bouton loupe pour rechercher selon le critère rentré">
+                <div class="search-input d-flex position-relative me-4">
+                    <img src="../../../assets/img/SVG/search.svg"
+                        alt="Bouton loupe pour rechercher selon le critère rentré">
                     <input type="text" class="form-control form-input m-0" (keyup)="onEnter()" id="search"
-                           [(ngModel)]="search">
+                        [(ngModel)]="search">
                     <div class="reset-search" (click)="resetSearch()">
                         <span>x</span>
                     </div>
                 </div>
 
-                <div class="dropdown">
+                <button
+                    class="hover-zoom d-flex flex-column align-items-center position-relative cursorPointer bg-transparent border-0 p-0"
+                    title="Notifications" type="button" data-bs-toggle="modal" data-bs-target="#notificationsModal">
+                    <img src="../../../assets/img/SVG/notification.svg" width="40" height="40" alt="Icone notification">
+                    <div
+                        class="position-absolute end-0 rounded-circle bg-main text-white d-flex align-items-center justify-content-center border border-light w-50 h-50">
+                        0</div>
+                </button>
+
+                <div class="dropdown ms-4">
                     <a class="hover-zoom d-flex flex-column align-items-center cursorPointer" title="Mon Compte"
-                       id="dropdownMenuButton1"
-                       data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="../../../assets/img/SVG/profile.svg" width="40" height="40" alt="Image fictive du profil de l'utilisateur">
+                        id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="../../../assets/img/SVG/profile.svg" width="40" height="40" alt="Icone profil">
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <li><button class="dropdown-item cursorPointer" type="button" data-bs-toggle="modal"
+                                data-bs-target="#userInfoModal">Informations</button></li>
+                        <li><a class="dropdown-item cursorPointer" [routerLink]="['/statistics']">Statistiques</a></li>
                         <li><a class="dropdown-item cursorPointer" (click)="logout()">Déconnexion</a></li>
                     </ul>
                 </div>
 
+            </div>
+        </div>
+    </div>
+</div>
 
+<div class="modal fade" id="userInfoModal" tabindex="-1" aria-labelledby="userInfoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Informations personnelles</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="mt-4">
+                    <div class="form-group">
+                        <label for="user-email">Email</label>
+                        <input type="email" [formControl]="email" class="form-control" id="user-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="user-name">Nom d'utilisateur</label>
+                        <input type="text" [formControl]="username" class="form-control" id="user-name" required>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <button type="button" (click)="updateUser()" class="btn btn-main"
+                            data-bs-dismiss="modal">Modifier</button>
+                    </div>
+                </form>
+
+                <form class="mt-4">
+                    <div class="form-group">
+                        <label for="user-new-pass">Ancien mot de passe</label>
+                        <input type="password" [formControl]="previousPassword" class="form-control" id="user-old-pass"
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <label for="user-new-pass">Nouveau mot de passe</label>
+                        <input type="password" [formControl]="password" class="form-control" id="user-new-pass"
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <label for="user-confirm-pass">Confirmer nouveau mot de passe</label>
+                        <input type="password" [formControl]="confirmPassword" class="form-control"
+                            id="user-confirm-pass" required>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <button type="button" (click)="updateUserPassword()" class="btn btn-main"
+                            data-bs-dismiss="modal">Modifier</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="notificationsModal" tabindex="-1" aria-labelledby="notificationsModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Notifications</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-0">
+                <div class="d-flex align-items-center justify-content-between py-2 px-3 border-top-main"
+                    *ngFor="let notification of notifications">
+                    <div>
+                        <strong><img src="../../../assets/img/SVG/notification.svg" width="16" height="16"
+                                alt="Icone notification"> {{
+                            notification.type }}</strong>
+                        <p class="m-0">{{ notification.message }}</p>
+                    </div>
+                    <div>
+                        <button class="border-0 bg-transparent p-0">
+                            <img class="img-fluid icon-main" src="../../assets/img/SVG/remove.svg" height="20"
+                                width="20" alt="Icone de suppression">
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

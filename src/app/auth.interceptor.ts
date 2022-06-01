@@ -1,19 +1,18 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
     HttpRequest,
     HttpHandler,
     HttpEvent,
     HttpInterceptor,
 } from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {JwtHelperService} from '@auth0/angular-jwt';
+import { Observable } from 'rxjs';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
     providedIn: 'root',
 })
 export class AuthInterceptor implements HttpInterceptor {
-    constructor(private jwtHelper: JwtHelperService) {
-    }
+    constructor(private jwtHelper: JwtHelperService) {}
 
     intercept(
         request: HttpRequest<any>,
@@ -22,7 +21,10 @@ export class AuthInterceptor implements HttpInterceptor {
         const idToken = this.jwtHelper.tokenGetter();
         if (idToken) {
             const cloned = request.clone({
-                headers: request.headers.set('Authorization', idToken),
+                headers: request.headers.set(
+                    'Authorization',
+                    'Bearer ' + idToken
+                ),
             });
             return next.handle(cloned);
         } else {
