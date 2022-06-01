@@ -32,8 +32,6 @@ export class StatisticsComponent implements OnInit {
     public commentsStats: any = {};
     public nbAnimes: number = 0;
 
-    constructor() {}
-
     async getStatistics() {
         return {
             commentsStat: {
