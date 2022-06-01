@@ -1,12 +1,10 @@
-import {ListService} from './../services/list.service';
+import {ListService} from '../services/list.service';
 import {Component, OnInit} from '@angular/core';
 import {AnimeService} from '../services/anime.service';
 import {DatePipe} from '@angular/common';
 import {
     ActivatedRoute,
-    NavigationEnd,
     Router,
-    RouterEvent,
 } from '@angular/router';
 import {firstValueFrom} from 'rxjs';
 
@@ -40,6 +38,13 @@ export class HomeComponent implements OnInit {
         private listS: ListService,
         private router: Router
     ) {
+        this.route.queryParams.subscribe(async queryParams => {
+            if (this.paramIsEmpty(queryParams['search'])) {
+                this.isSearch = false;
+                this.url = 'fullsearch';
+            }
+            await this.initData();
+        });
     }
 
     async ngOnInit(): Promise<any> {
@@ -47,10 +52,11 @@ export class HomeComponent implements OnInit {
     }
 
     async initData() {
+        this.resetValue();
         const params = await firstValueFrom(this.route.queryParams);
         const {search} = params;
         await this.getMyList();
-        if (search) {
+        if (search && !this.paramIsEmpty(search)) {
             this.isSearch = true;
             this.url = 'search';
             await this.getAllAnime({query: search});
@@ -68,6 +74,7 @@ export class HomeComponent implements OnInit {
         if (this.totalPage >= this.page) {
             try {
                 const dataObject: any = await this.apiA.get(this.url, data);
+                this.resetValue();
                 this.animes = this.animes.concat(dataObject.body.results);
                 this.totalPage = dataObject.body.total_pages;
                 ++this.page;
@@ -162,5 +169,9 @@ export class HomeComponent implements OnInit {
             this.genders.splice(this.genders.indexOf(idApi), 1);
         }
         await this.getAllAnime(await this.mergeObject());
+    }
+
+    paramIsEmpty(param: any) {
+        return param !== undefined && (param === null || param.match(/^ *$/) !== null)
     }
 }
