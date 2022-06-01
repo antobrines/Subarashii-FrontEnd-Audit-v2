@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { ResponseService } from '../../services/response.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
     selector: 'app-header',
@@ -15,6 +16,11 @@ export class HeaderComponent implements OnInit {
     search: string = '';
     notifications: any = [];
     user: any = [];
+    public username = new FormControl();
+    public email = new FormControl();
+    public previousPassword = new FormControl();
+    public password = new FormControl();
+    public confirmPassword = new FormControl();
 
     constructor(
         private router: Router,
@@ -42,7 +48,29 @@ export class HeaderComponent implements OnInit {
     }
 
     async getUser() {
-        return this.authS.userConnected();
+        return this.authS.getUser();
+    }
+
+    async updateUser() {
+        const username = this.username.value;
+        const email = this.email.value;
+        await this.authS.updateUser({
+            username: username,
+            email: email,
+        });
+        await this.getUser();
+    }
+
+    async updateUserPassword() {
+        const previousPassword = this.previousPassword.value;
+        const password = this.password.value;
+        const confirmPassword = this.confirmPassword.value;
+        await this.authS.updateUserPassword({
+            previousPassword: previousPassword,
+            password: password,
+            confirmPassword: confirmPassword,
+        });
+        await this.getUser();
     }
 
     async deleteNotification(id: number) {
@@ -60,6 +88,8 @@ export class HeaderComponent implements OnInit {
 
     async ngOnInit() {
         this.user = await this.getUser();
+        this.username.setValue(this.user.username);
+        this.email.setValue(this.user.email);
         this.notifications = await this.getNotifications();
     }
 

@@ -113,26 +113,41 @@
                 <form class="mt-4">
                     <div class="form-group">
                         <label for="user-email">Email</label>
-                        <input type="email" class="form-control" id="user-email" value="{{ user.email }}" required>
+                        <input type="email" [formControl]="email" class="form-control" id="user-email" required>
                     </div>
                     <div class="form-group">
                         <label for="user-name">Nom d'utilisateur</label>
-                        <input type="text" class="form-control" id="user-name" value="{{ user.username }}" required>
+                        <input type="text" [formControl]="username" class="form-control" id="user-name" required>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <button type="button" (click)="updateUser()" class="btn btn-main"
+                            data-bs-dismiss="modal">Modifier</button>
+                    </div>
+                </form>
+
+                <form class="mt-4">
+                    <div class="form-group">
+                        <label for="user-new-pass">Ancien mot de passe</label>
+                        <input type="password" [formControl]="previousPassword" class="form-control" id="user-old-pass"
+                            required>
                     </div>
                     <div class="form-group">
                         <label for="user-new-pass">Nouveau mot de passe</label>
-                        <input type="password" class="form-control" id="user-new-pass" required>
+                        <input type="password" [formControl]="password" class="form-control" id="user-new-pass"
+                            required>
                     </div>
                     <div class="form-group">
                         <label for="user-confirm-pass">Confirmer nouveau mot de passe</label>
-                        <input type="password" class="form-control" id="user-confirm-pass" required>
+                        <input type="password" [formControl]="confirmPassword" class="form-control"
+                            id="user-confirm-pass" required>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <button type="button" (click)="updateUserPassword()" class="btn btn-main"
+                            data-bs-dismiss="modal">Modifier</button>
                     </div>
                 </form>
             </div>
-            <div class="modal-footer justify-content-center">
-                <button type="button" class="btn btn-main">Modifier</button>
-                <button type="button" class="btn btn-secondary rounded-0" data-bs-dismiss="modal">Annuler</button>
-            </div>
+
         </div>
     </div>
 </div>
