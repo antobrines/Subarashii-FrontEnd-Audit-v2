@@ -108,8 +108,8 @@ export class AnimeComponent implements OnInit {
         this.userLists = await this.listS.getMyList();
     }
 
-    async addAnimeList(idAnime: number, idList: number) {
-        await this.listS.addAnimeList(idAnime, idList);
+    async addAnimeList(idAnime: number, idList: number,categories: Array<any>) {
+        await this.listS.addAnimeList(idAnime, idList,categories);
         this.myAnimeIdSeeList.push(idAnime);
     }
 

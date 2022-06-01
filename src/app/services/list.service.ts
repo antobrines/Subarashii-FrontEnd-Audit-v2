@@ -32,21 +32,22 @@ export class ListService {
         }
     }
 
-    async addAnimeList(idAnime: number, idList: number = -1) {
+    async addAnimeList(idAnime: number, idList: number = -1, categories: Array<any>) {
         try {
             if (idList == -1) {
                 const myList = await this.getMyList();
                 idList = myList[0].id;
             }
             const json = {
-                idUserList: idList,
-                idApiAnime: idAnime,
+                animeId: String(idAnime),
+                animeCategories: categories.map(String)
             };
-            const $put = this.http.put(
-                environment.backUrl + 'lists/' + idAnime + '/anime/add',
-                json
+            
+            const $patch = this.http.patch(
+                environment.backUrl + 'lists/' + idList + '/anime/add',
+                json,
             );
-            const res = await firstValueFrom($put);
+            const res = await firstValueFrom($patch);
             this.responseS.SuccessF(res);
             return true;
         } catch (error) {
@@ -56,7 +57,7 @@ export class ListService {
 
     async myAnimeIdSeeList() {
         try {
-            const $get = this.http.get(environment.backUrl + 'lists/anime');
+            const $get = this.http.get(environment.backUrl + 'lists/animes');
             const data: any = await firstValueFrom($get);
             return data.body;
         } catch (error) {

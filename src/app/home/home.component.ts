@@ -142,8 +142,8 @@ export class HomeComponent implements OnInit {
         return this.datePipe.transform(date, 'dd/MM/yyyy');
     }
 
-    async addAnimeList(idAnime: number, idList: number) {
-        await this.listS.addAnimeList(idAnime, idList);
+    async addAnimeList(idAnime: number, idList: number, categories: Array<any>) {
+        await this.listS.addAnimeList(idAnime, idList,categories);
         this.myAnimeIdSeeList.push(idAnime);
     }
 
