@@ -1,122 +1,130 @@
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { ChartData, ChartType, ChartConfiguration } from 'chart.js';
-import {ResponseService} from '../../services/response.service';
+import { ResponseService } from '../../services/response.service';
 import { BaseChartDirective } from 'ng2-charts';
 
 @Component({
-  selector: 'app-statistics',
-  templateUrl: './statistics.component.html',
-  styleUrls: ['./statistics.component.css']
+    selector: 'app-statistics',
+    templateUrl: './statistics.component.html',
+    styleUrls: ['./statistics.component.css'],
 })
 export class StatisticsComponent implements OnInit {
-    @ViewChildren(BaseChartDirective) charts: QueryList<BaseChartDirective> | undefined;
+    @ViewChildren(BaseChartDirective) charts:
+        | QueryList<BaseChartDirective>
+        | undefined;
 
     public userStats: any = {};
     public animesLabels: any = [];
     public animesDatas: any = [];
     public genresLabels: any = [];
     public genresDatas: any = [];
-    public colors: any = ['#22243a', '#822e2e', '#c66d00', '#634d72', '#2d1a2d', '#533253', '#B66734', '#AF561E'];
+    public colors: any = [
+        '#22243a',
+        '#822e2e',
+        '#c66d00',
+        '#634d72',
+        '#2d1a2d',
+        '#533253',
+        '#B66734',
+        '#AF561E',
+    ];
 
     public animesStats: any = {};
     public commentsStats: any = {};
     public nbAnimes: number = 0;
 
-    constructor(private responseS: ResponseService) {
-    }
+    constructor(private responseS: ResponseService) {}
 
     async getStatistics() {
         try {
-            const json = {
-                "commentsStat": {
-                    "nbComments": 3,
-                    "nbCommentsLiked": 2
+            return {
+                commentsStat: {
+                    nbComments: 3,
+                    nbCommentsLiked: 2,
                 },
-                "animesStat": {
-                    "timeWatched": 100,
-                    "nbEpisodesWatched": 3
+                animesStat: {
+                    timeWatched: 100,
+                    nbEpisodesWatched: 3,
                 },
-                "listAnimesStat": [
+                listAnimesStat: [
                     {
-                        "name": "A voir",
-                        "nbAnime": 50
+                        name: 'A voir',
+                        nbAnime: 50,
                     },
                     {
-                        "name": "En cours",
-                        "nbAnime": 14
+                        name: 'En cours',
+                        nbAnime: 14,
                     },
                     {
-                        "name": "En attente",
-                        "nbAnime": 34
+                        name: 'En attente',
+                        nbAnime: 34,
                     },
                     {
-                        "name": "Terminés",
-                        "nbAnime": 29
-                    }
+                        name: 'Terminés',
+                        nbAnime: 29,
+                    },
                 ],
-                "genresStat": [
+                genresStat: [
                     {
-                        "name": "Fantastique",
-                        "nbTime": 41
+                        name: 'Fantastique',
+                        nbTime: 41,
                     },
                     {
-                        "name": "Drame",
-                        "nbTime": 31
+                        name: 'Drame',
+                        nbTime: 31,
                     },
                     {
-                        "name": "Comédie",
-                        "nbTime": 5
+                        name: 'Comédie',
+                        nbTime: 5,
                     },
                     {
-                        "name": "Aventure",
-                        "nbTime": 51
-                    }
-                ]
+                        name: 'Aventure',
+                        nbTime: 51,
+                    },
+                ],
             };
-            return json;
-            
         } catch (error) {
             return this.responseS.ErrorF(error);
         }
     }
 
     // Animes Doughnut
-    
-    public doughnutChartAnimesLabels: string[] = [  ];
+
+    public doughnutChartAnimesLabels: string[] = [];
     public doughnutChartAnimesData: ChartData<'doughnut'> = {
-      labels: [],
-      datasets: []
+        labels: [],
+        datasets: [],
     };
 
     public doughnutChartAnimesOptions: ChartConfiguration['options'] = {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          position: 'right',
-        }
-      }
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'right',
+            },
+        },
     };
-    
+
     public doughnutChartAnimesType: ChartType = 'doughnut';
 
     // Genres Doughnut
-    
+
     public doughnutChartGenresData: ChartData<'doughnut'> = {
-      labels: [],
-      datasets: []
+        labels: [],
+        datasets: [],
     };
 
     public doughnutChartGenresOptions: ChartConfiguration['options'] = {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          position: 'right',
-        }
-      }
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'right',
+            },
+        },
     };
-    
+
     public doughnutChartGenresType: ChartType = 'doughnut';
 
     async ngOnInit() {
@@ -124,44 +132,43 @@ export class StatisticsComponent implements OnInit {
         this.animesStats = this.userStats.animesStat;
         this.commentsStats = this.userStats.commentsStat;
 
-        for (var key in this.userStats.listAnimesStat) {
-            var obj = this.userStats.listAnimesStat[key];
-            this.animesLabels.push(obj.name);
-            this.animesDatas.push(obj.nbAnime);
+        var keyAnimesStat;
+        var keyGenresStat;
 
-            this.nbAnimes += obj.nbAnime;
+        for (keyAnimesStat in this.userStats.listAnimesStat) {
+            const objAnimeStat = this.userStats.listAnimesStat[keyAnimesStat];
+            this.animesLabels.push(objAnimeStat.name);
+            this.animesDatas.push(objAnimeStat.nbAnime);
+
+            this.nbAnimes += objAnimeStat.nbAnime;
         }
-        
+
         this.doughnutChartAnimesData.labels = this.animesLabels;
 
-        this.doughnutChartAnimesData.datasets.push(
-            { data: this.animesDatas,
-                backgroundColor: this.colors,
-                hoverBackgroundColor: this.colors,
-                hoverBorderColor: this.colors
-            }
-        );
+        this.doughnutChartAnimesData.datasets.push({
+            data: this.animesDatas,
+            backgroundColor: this.colors,
+            hoverBackgroundColor: this.colors,
+            hoverBorderColor: this.colors,
+        });
 
-        for (var key in this.userStats.genresStat) {
-            var obj = this.userStats.genresStat[key];
-            this.genresLabels.push(obj.name);
-            this.genresDatas.push(obj.nbTime);
+        for (keyGenresStat in this.userStats.genresStat) {
+            const objGenreStat = this.userStats.genresStat[keyGenresStat];
+            this.genresLabels.push(objGenreStat.name);
+            this.genresDatas.push(objGenreStat.nbTime);
         }
 
         this.doughnutChartGenresData.labels = this.genresLabels;
-        
-        this.doughnutChartGenresData.datasets.push(
-            { data: this.genresDatas,
-                backgroundColor: this.colors,
-                hoverBackgroundColor: this.colors,
-                hoverBorderColor: this.colors
-            }
-        );
+
+        this.doughnutChartGenresData.datasets.push({
+            data: this.genresDatas,
+            backgroundColor: this.colors,
+            hoverBackgroundColor: this.colors,
+            hoverBorderColor: this.colors,
+        });
 
         this.charts?.forEach((chart) => {
             chart.update();
-        })
-        
+        });
     }
-
 }

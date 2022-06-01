@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
-import {firstValueFrom} from 'rxjs';
-import {AuthService} from 'src/app/services/auth.service';
-import {environment} from '../../../environments/environment';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {ResponseService} from '../../services/response.service';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
+import { environment } from '../../../environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { ResponseService } from '../../services/response.service';
 
 @Component({
     selector: 'app-header',
@@ -30,21 +30,16 @@ export class HeaderComponent implements OnInit {
 
     async getNotifications() {
         try {
-            //const $get = this.http.get(environment.backUrl + 'notifications');
-            //const data: any = await firstValueFrom($get);
-            //return data.body;
-            const json = [
+            return [
                 {
-                    "type": "Notification 1",
-                    "message": "Description notification 1"
+                    type: 'Notification 1',
+                    message: 'Description notification 1',
                 },
                 {
-                    "type": "Notification 2",
-                    "message": "Description notification 2"
-                }
+                    type: 'Notification 2',
+                    message: 'Description notification 2',
+                },
             ];
-            return json;
-            
         } catch (error) {
             return this.responseS.ErrorF(error);
         }
@@ -53,7 +48,6 @@ export class HeaderComponent implements OnInit {
     async getUser() {
         return this.authS.userConnected();
     }
-
 
     async deleteNotification(id: number) {
         try {
@@ -69,15 +63,13 @@ export class HeaderComponent implements OnInit {
     }
 
     async ngOnInit() {
-
         this.user = await this.getUser();
         this.notifications = await this.getNotifications();
-        
     }
 
     onEnter() {
         this.router
-            .navigate(['/'], {queryParams: {search: this.search}})
+            .navigate(['/'], { queryParams: { search: this.search } })
             .then(() => {
                 window.location.reload();
             });
