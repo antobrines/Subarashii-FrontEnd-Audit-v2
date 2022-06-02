@@ -1,0 +1,78 @@
+<section>
+    <div class="container my-5">
+        <div class="title mb-5">
+            <h1>Statistiques</h1>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="stat-card">
+                    <div class="d-flex align-items-center justify-content-between bg-main text-white py-2 px-4">
+                        <h2 class="m-0">Animés</h2>
+                        <p class="m-0">Total : <strong>{{ nbAnimes }}</strong></p>
+                    </div>
+                    <div class="p-5">
+                        <canvas baseChart width="200" [data]="doughnutChartAnimesData" [type]="doughnutChartAnimesType"
+                            [options]="doughnutChartAnimesOptions">
+                        </canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mt-4 mt-lg-0">
+                <div class="stat-card">
+                    <div class="d-flex align-items-center bg-main text-white py-2 px-4">
+                        <h2 class="m-0">Genres</h2>
+                    </div>
+                    <div class="p-5">
+                        <canvas baseChart width="200" [data]="doughnutChartGenresData" [type]="doughnutChartGenresType"
+                            [options]="doughnutChartGenresOptions">
+                        </canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-lg-6">
+                <div class="stat-card">
+                    <div class="d-flex align-items-center bg-main text-white py-2 px-4">
+                        <h2 class="m-0">Episodes</h2>
+                    </div>
+                    <div class="row p-5">
+                        <div class="col-xl-6">
+                            <div class="bg-main text-white p-4 p-xl-5 text-center">
+                                <strong>{{ animesStats.nbEpisodesWatched }}</strong><br>
+                                <p class="m-0">épisodes regardés</p>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 mt-4 mt-xl-0">
+                            <div class="bg-main text-white p-4 p-xl-5 text-center">
+                                <strong>{{ animesStats.timeWatched }} h</strong><br>
+                                <p class="m-0">de visionnage</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mt-4 mt-lg-0">
+                <div class="stat-card">
+                    <div class="d-flex align-items-center bg-main text-white py-2 px-4">
+                        <h2 class="m-0">Commentaires</h2>
+                    </div>
+                    <div class="row p-5">
+                        <div class="col-xl-6">
+                            <div class="bg-main text-white p-4 p-xl-5 text-center">
+                                <strong>{{ commentsStats.nbComments }}</strong><br>
+                                <p class="m-0">commentaires laissés</p>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 mt-4 mt-xl-0">
+                            <div class="bg-main text-white p-4 p-xl-5 text-center">
+                                <strong>{{ commentsStats.nbCommentsLiked }}</strong><br>
+                                <p class="m-0">j'aime reçus</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

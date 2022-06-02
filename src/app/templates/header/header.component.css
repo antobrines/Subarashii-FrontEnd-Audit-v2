@@ -32,6 +32,24 @@
     margin-bottom: 0 !important;
 }
 
+.search-input input:focus {
+    padding-right: 70px;
+}
+
+.reset-search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    right: 30px;
+    cursor: pointer;
+}
+
+.reset-search span {
+    margin: 0 10px;
+    color: rgba(255, 73, 63, 0.9);
+}
+
 /* Responsive */
 
 @media only screen and (max-width: 992px) {

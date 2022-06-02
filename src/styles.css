@@ -64,6 +64,11 @@ body {
     color: black;
 }
 
+.modal-content {
+    border-radius: 0 !important;
+    border: 0 !important;
+}
+
 /*
 ----------------------------------
 2. Texte
@@ -168,16 +173,23 @@ textarea {
     border: 1px solid var(--main-color);
 }
 
+.border-top-main {
+    border-top: 1px solid var(--main-color);
+}
+
 .icon-white {
-    filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
+    filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg)
+        brightness(102%) contrast(102%);
 }
 
 .icon-main {
-    filter: invert(51%) sepia(62%) saturate(5708%) hue-rotate(337deg) brightness(103%) contrast(101%);
+    filter: invert(51%) sepia(62%) saturate(5708%) hue-rotate(337deg)
+        brightness(103%) contrast(101%);
 }
 
 .icon-black {
-    filter: invert(0%) sepia(0%) saturate(7471%) hue-rotate(260deg) brightness(92%) contrast(108%);
+    filter: invert(0%) sepia(0%) saturate(7471%) hue-rotate(260deg)
+        brightness(92%) contrast(108%);
 }
 
 /*
@@ -238,6 +250,12 @@ textarea {
     padding-right: 20px;
 }
 
+.dropdown-item.active,
+.dropdown-item:active {
+    color: var(--main-white);
+    background-color: var(--main-color);
+}
+
 /*
 ----------------------------------
 6. Scroll Bar
@@ -283,7 +301,8 @@ textarea {
 }
 
 .nav-link.active .icon-nav {
-    filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
+    filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg)
+        brightness(102%) contrast(102%);
 }
 
 /*
