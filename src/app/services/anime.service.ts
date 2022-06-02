@@ -6,17 +6,7 @@ import {firstValueFrom} from 'rxjs';
 @Injectable({
     providedIn: 'root',
 })
-export class AnimeService {
-
-    /*
-    {
-        "id":2,
-        "idApi": 16,
-        "name": "Animation",
-        "nom": "Animation"
-    },
-    */
-   
+export class AnimeService { 
     public genres = [{
         "id":1,
         "idApi": 10759,
@@ -107,6 +97,14 @@ export class AnimeService {
         "name": "Western",
         "nom": "Western"
     }]
+    /*
+    {
+        "id":2,
+        "idApi": 16,
+        "name": "Animation",
+        "nom": "Animation"
+    },
+    */
 
     constructor(private http: HttpClient) {
     }
@@ -115,7 +113,7 @@ export class AnimeService {
         const params = {
             params: search,
         };
-        const get$ = this.http.get(environment.apiAnimeUrl + url, params);
+        const get$ = this.http.get(environment.apiAnimeUrl + '/' + url, params);
         const data = await firstValueFrom(get$);
         return data;
     }
