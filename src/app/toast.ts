@@ -1,28 +1,28 @@
-export class toastInfo {
+export class ToastInfo {
     isShow: boolean = false;
-    message!: String;
-    type!: toastType;
+    message!: string;
+    type!: ToastType;
 }
 
-export class allTypeToast {
-    public static information: toastType = {
+export class AllTypeToast {
+    public static information: ToastType = {
         text: 'Information',
         color: 'blue',
         image: 'information.svg',
     };
-    public static error: toastType = {
+    public static error: ToastType = {
         text: 'Erreur',
         color: 'red',
         image: 'error.svg',
     };
-    public static success: toastType = {
+    public static success: ToastType = {
         text: 'Succès',
         color: 'green',
         image: 'success.svg',
     };
 }
 
-interface toastType {
+interface ToastType {
     text: string;
     color: String;
     image: String;

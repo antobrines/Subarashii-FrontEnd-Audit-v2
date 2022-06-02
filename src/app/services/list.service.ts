@@ -1,4 +1,4 @@
-import {firstValueFrom, Observable} from 'rxjs';
+import {firstValueFrom} from 'rxjs';
 import {environment} from 'src/environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
@@ -13,7 +13,7 @@ export class ListService {
 
     async getMyList() {
         try {
-            const $get = this.http.get(environment.backUrl + 'userlists/all');
+            const $get = this.http.get(environment.backUrl + 'lists');
             const data: any = await firstValueFrom($get);
             return data.body;
         } catch (error) {
@@ -23,7 +23,7 @@ export class ListService {
 
     async addList(dataForm: any) {
         try {
-            const $post = this.http.post(environment.backUrl + 'userlists', dataForm);
+            const $post = this.http.post(environment.backUrl + 'lists', dataForm);
             const res = await firstValueFrom($post);
             this.responseS.SuccessF(res);
             return true;
@@ -32,21 +32,22 @@ export class ListService {
         }
     }
 
-    async addAnimeList(idAnime: number, idList: number = -1) {
+    async addAnimeList(idAnime: number, categories: Array<any>, idList: number = -1) {
         try {
             if (idList == -1) {
                 const myList = await this.getMyList();
                 idList = myList[0].id;
             }
             const json = {
-                idUserList: idList,
-                idApiAnime: idAnime,
+                animeId: String(idAnime),
+                animeCategories: categories.map(String)
             };
-            const $put = this.http.put(
-                environment.backUrl + 'userlists/addanime',
-                json
+            
+            const $patch = this.http.patch(
+                environment.backUrl + 'lists/' + idList + '/anime/add',
+                json,
             );
-            const res = await firstValueFrom($put);
+            const res = await firstValueFrom($patch);
             this.responseS.SuccessF(res);
             return true;
         } catch (error) {
@@ -56,7 +57,7 @@ export class ListService {
 
     async myAnimeIdSeeList() {
         try {
-            const $get = this.http.get(environment.backUrl + 'users/idapianimes');
+            const $get = this.http.get(environment.backUrl + 'lists/animes');
             const data: any = await firstValueFrom($get);
             return data.body;
         } catch (error) {
@@ -96,7 +97,7 @@ export class ListService {
     async getAnimeList(idList: number) {
         try {
             const $get = this.http.get(
-                environment.backUrl + 'userlists/' + idList + '/animes'
+                environment.backUrl + 'lists/' + idList + '/animes'
             );
             const data: any = await firstValueFrom($get);
             return data.body;
@@ -108,7 +109,7 @@ export class ListService {
     async deleteList(idList: number) {
         try {
             const $delete = this.http.delete(
-                environment.backUrl + 'userlists/' + idList
+                environment.backUrl + 'lists/' + idList
             );
             const res: any = await firstValueFrom($delete);
             this.responseS.SuccessF(res);
@@ -121,7 +122,7 @@ export class ListService {
     async deleteAnimeList(idAnime: number, idList: number) {
         try {
             const $delete = this.http.delete(
-                environment.backUrl + 'userlists/' + idList + '/animes/' + idAnime
+                environment.backUrl + 'lists/' + idList + '/anime/' + idAnime
             );
             const res: any = await firstValueFrom($delete);
             this.responseS.SuccessF(res);

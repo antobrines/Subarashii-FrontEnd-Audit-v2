@@ -36,10 +36,7 @@ export class AuthService {
     }
 
     async register(data: any): Promise<boolean> {
-        const request = this.http.post(
-            environment.backUrl + 'users/register',
-            data
-        );
+        const request = this.http.post(environment.backUrl + 'users/register', data);
         try {
             const res = await firstValueFrom(request);
             this.responseS.SuccessF(res);

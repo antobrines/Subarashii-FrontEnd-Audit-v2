@@ -1,4 +1,3 @@
-import {firstValueFrom} from 'rxjs';
 import {ListService} from './../../services/list.service';
 import {Component, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
@@ -25,10 +24,9 @@ export class AnimesListComponent implements OnInit {
 
     async ngOnInit() {
         await this.getMyList();
-        const idAvoir: any = this.myList.filter((el) => el.nom == 'A voir');
-
-        await this.getAnimeList(idAvoir[0].id);
-        this.initializeIdList(idAvoir[0].id);
+        const idAvoir: any = this.myList.filter((el) => el.label == 'À voir');
+        await this.getAnimeList(idAvoir[0]._id);
+        this.initializeIdList(idAvoir[0]._id);
     }
 
     async getMyList() {
@@ -37,7 +35,7 @@ export class AnimesListComponent implements OnInit {
 
     async addList() {
         const name = this.name.value;
-        const data = await this.listS.addList({nom: name});
+        await this.listS.addList({label: name});
         this.name.setValue('');
         await this.getMyList();
     }

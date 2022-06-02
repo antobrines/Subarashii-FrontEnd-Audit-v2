@@ -87,12 +87,13 @@
                                  src="https://image.tmdb.org/t/p/w500{{anime.poster_path}}"
                                  *ngIf="anime.poster_path" [routerLink]="['/anime', anime.id]"
                                  title='Voir la fiche de "{{anime.name}}"' alt="Image de l'anime {{anime.name}}">
-                            <img class="img-fluid cursorPointer" src="/assets/img/noimage.png"
+                            <img class="img-fluid cursorPointer" src="assets/img/noimage.png"
                                  *ngIf="!anime.poster_path"
                                  [routerLink]="['/anime', anime.id]" alt="Image non trouvée">
                             <p class="mb-0 mt-1 fw-bold" title="{{anime.name}}">{{anime.original_name}}</p>
+                           
                             <div class="d-flex justify-content-between">
-                                <small>{{changeDate(anime.first_air_date)}}</small>
+                                <small>{{changeDate(anime.first_air_date)}}</small>                      
                                 <div class="dropdown" *ngIf="!myAnimeIdSeeList.includes(anime.id)">
                                     <button class="border-0 bg-transparent p-0"
                                             [attr.id]="'dropdownMenuButton'+anime.id"
@@ -102,16 +103,14 @@
                                     </button>
 
                                     <ul class="dropdown-menu" [attr.aria-labelledby]="'dropdownMenuButton'+anime.id">
-                                        <li *ngFor="let list of userLists" (click)="addAnimeList(anime.id, list.id)"><a
-                                            class="dropdown-item cursorPointer">{{ list.nom }}</a></li>
+                                        <li *ngFor="let list of userLists" (click)="addAnimeList(anime.id, list._id,anime.genre_ids)"><a
+                                            class="dropdown-item cursorPointer">{{ list.label }}</a></li>
                                     </ul>
                                 </div>
-
                                 <div class="border-0 bg-transparent p-0" *ngIf="myAnimeIdSeeList.includes(anime.id)">
                                     <img class="img-fluid" src="../../assets/img/SVG/added.svg" height="20" width="20" alt="Rond coché car animé ajouté à une liste">
                                 </div>
-
-                            </div>
+                            </div>     
                         </div>
                     </div>
                 </div>

@@ -50,8 +50,8 @@ export class AnimeComponent implements OnInit {
                 episodes: [],
             });
         }
-        await this.getEpisodeViews();
-        this.episodesView = await this.episodesView.map((el) => el.idApiEpisode);
+        //await this.getEpisodeViews();
+        //this.episodesView = await this.episodesView.map((el) => el.idApiEpisode);
         await this.getMyList();
         this.myAnimeIdSeeList = await this.listS.myAnimeIdSeeList();
         this.router.events.subscribe((evt) => {
@@ -67,6 +67,13 @@ export class AnimeComponent implements OnInit {
         if (element == 'comments') {
             this.commentsBtn?.nativeElement.click();
         }
+        console.log(this.anime)
+        console.log(this.saisons)
+        console.log(this.episodesView)
+        console.log(this.userLists)
+        console.log(this.myAnimeIdSeeList)
+        console.log(this.comments)
+        console.log(this.username)
     }
 
     changeDate(date: Date): any {
@@ -76,7 +83,7 @@ export class AnimeComponent implements OnInit {
     async getEpisodesSaison(idSaison: number = 1) {
         if (this.saisons[idSaison - 1].episodes.length == 0) {
             const data = await this.animeS.getEpisodesSaison(
-                this.anime.idApi,
+                this.anime.id,
                 idSaison
             );
             this.saisons[idSaison - 1].episodes = data;
@@ -85,7 +92,7 @@ export class AnimeComponent implements OnInit {
 
     async changeStateViewEpisode(event: any, idEpisode: number) {
         const data = await this.listS.changeStateViewEpisode(
-            this.anime.idApi,
+            this.anime.id,
             idEpisode
         );
         const target = event.target;
@@ -101,15 +108,15 @@ export class AnimeComponent implements OnInit {
     }
 
     async getEpisodeViews() {
-        this.episodesView = await this.listS.getEpisodeViews(this.anime.idApi);
+        this.episodesView = await this.listS.getEpisodeViews(this.anime.id);
     }
 
     async getMyList() {
         this.userLists = await this.listS.getMyList();
     }
 
-    async addAnimeList(idAnime: number, idList: number) {
-        await this.listS.addAnimeList(idAnime, idList);
+    async addAnimeList(idAnime: number, idList: number,categories: Array<any>) {
+        await this.listS.addAnimeList(idAnime,categories, idList);
         this.myAnimeIdSeeList.push(idAnime);
     }
 

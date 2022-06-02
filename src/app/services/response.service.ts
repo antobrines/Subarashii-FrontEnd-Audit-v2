@@ -2,7 +2,7 @@ import {ToastService} from './toast.service';
 import {HttpErrorResponse} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
-import {allTypeToast} from '../toast';
+import {AllTypeToast} from '../toast';
 
 @Injectable({
     providedIn: 'root',
@@ -21,7 +21,7 @@ export class ResponseService {
         const toast = {
             isShow: true,
             message: error.message,
-            type: allTypeToast.error,
+            type: AllTypeToast.error,
         };
 
         this.toatS.activeToast(toast);
@@ -32,7 +32,7 @@ export class ResponseService {
         const toast = {
             isShow: true,
             message: res.message,
-            type: allTypeToast.success,
+            type: AllTypeToast.success,
         };
 
         this.toatS.activeToast(toast);

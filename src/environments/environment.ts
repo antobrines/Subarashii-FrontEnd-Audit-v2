@@ -4,8 +4,8 @@
 
 export const environment = {
     production: false,
-    apiAnimeUrl: 'http://localhost:8080/animes/',
-    backUrl: 'http://localhost:8080/',
+    apiAnimeUrl: 'https://subarashii-backend.vercel.app/api/animes', //http://localhost:8080/animes/',
+    backUrl: 'https://subarashii-backend.vercel.app/api/', //http://localhost:8080/',
     version: '1.0.0',
 };
 
@@ -15,5 +15,6 @@ export const environment = {
  *
  * This import should be commented out in production mode because it will have a negative impact
  * on performance if an error is thrown.
+ * 
+ * import 'zone.js/plugins/zone-error';  Included with Angular CLI.
  */
-// import 'zone.js/plugins/zone-error';  // Included with Angular CLI.

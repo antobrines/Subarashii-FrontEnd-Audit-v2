@@ -2,10 +2,8 @@ import {ListService} from '../services/list.service';
 import {Component, OnInit} from '@angular/core';
 import {AnimeService} from '../services/anime.service';
 import {DatePipe} from '@angular/common';
-import {
-    ActivatedRoute,
-    Router,
-} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+
 import {firstValueFrom} from 'rxjs';
 
 @Component({
@@ -18,7 +16,7 @@ export class HomeComponent implements OnInit {
     private search: any = {};
     private include_adult: boolean = false;
     private totalPage: number = 1;
-    private url: string = 'fullsearch';
+    private url: string = '';
     private genders: string[] = ['16'];
     public dataObject: any = {};
     public animes: any = [];
@@ -63,14 +61,14 @@ export class HomeComponent implements OnInit {
             this.myAnimeIdSeeList = await this.listS.myAnimeIdSeeList();
             return;
         }
-        const dataObjet: any = await this.apiA.getGenres();
-        this.genres = dataObjet.body;
+        this.genres = this.apiA.genres;
         this.myAnimeIdSeeList = await this.listS.myAnimeIdSeeList();
         await this.getAllAnime(this.mergeObject());
     }
 
-    async getAllAnime(data: object = {}) {
+    async getAllAnime(data: any = {}) {
         this.loading = true;
+        if(data?.status === undefined) delete data.status
         if (this.totalPage >= this.page) {
             try {
                 const dataObject: any = await this.apiA.get(this.url, data);
@@ -89,19 +87,18 @@ export class HomeComponent implements OnInit {
     }
 
     mergeObject() {
-        const data = {
-            ...{sort_by: this.orderBy},
+        return {
             ...{page: this.page},
-            ...{include_adult: this.include_adult},
-            ...{with_status: this.search.status},
-            ...{with_original_language: 'ja'},
-            ...{with_genres: this.genders.join(',')},
+            ...{adult: this.include_adult},
+            ...{status: this.search.status},
+            ...{categories: this.genders.join(',')},
         };
-        return data;
     }
+    //...{sort_by: this.orderBy},
+    //...{with_original_language: 'ja'},
 
     async onScroll() {
-        await this.getAllAnime(await this.mergeObject());
+        await this.getAllAnime(this.mergeObject());
     }
 
     resetValue() {
@@ -121,7 +118,7 @@ export class HomeComponent implements OnInit {
         } else {
             delete this.search.statusTarget;
         }
-        await this.getAllAnime(await this.mergeObject());
+        await this.getAllAnime(this.mergeObject());
     }
 
     async changeRating(event: any) {
@@ -148,15 +145,15 @@ export class HomeComponent implements OnInit {
                 this.adult = false;
             }
         }
-        await this.getAllAnime(await this.mergeObject());
+        await this.getAllAnime(this.mergeObject());
     }
 
     changeDate(date: Date): any {
         return this.datePipe.transform(date, 'dd/MM/yyyy');
     }
 
-    async addAnimeList(idAnime: number, idList: number) {
-        const data = await this.listS.addAnimeList(idAnime, idList);
+    async addAnimeList(idAnime: number, idList: number, categories: Array<any>) {
+        await this.listS.addAnimeList(idAnime,categories, idList);
         this.myAnimeIdSeeList.push(idAnime);
     }
 
@@ -168,7 +165,7 @@ export class HomeComponent implements OnInit {
         } else {
             this.genders.splice(this.genders.indexOf(idApi), 1);
         }
-        await this.getAllAnime(await this.mergeObject());
+        await this.getAllAnime(this.mergeObject());
     }
 
     paramIsEmpty(param: any) {

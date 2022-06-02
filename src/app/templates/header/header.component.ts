@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import {Component} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {AuthService} from 'src/app/services/auth.service';
 import { firstValueFrom } from 'rxjs';
-import { AuthService } from 'src/app/services/auth.service';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { ResponseService } from '../../services/response.service';
@@ -12,7 +12,7 @@ import { FormControl } from '@angular/forms';
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.css'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
     search: string = '';
     notifications: any = [];
     user: any = [];
