@@ -35,7 +35,7 @@ export class AnimesListComponent implements OnInit {
 
     async addList() {
         const name = this.name.value;
-        const data = await this.listS.addList({label: name});
+        await this.listS.addList({label: name});
         this.name.setValue('');
         await this.getMyList();
     }

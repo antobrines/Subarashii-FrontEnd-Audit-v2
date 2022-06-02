@@ -7,7 +7,7 @@ import {AuthService} from 'src/app/services/auth.service';
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.css'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
     search: string = '';
 
     constructor(
@@ -18,9 +18,6 @@ export class HeaderComponent implements OnInit {
         this.route.queryParams.subscribe((params) => {
             this.search = params['search'];
         });
-    }
-
-    async ngOnInit() {
     }
 
     onEnter() {

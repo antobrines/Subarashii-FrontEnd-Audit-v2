@@ -1,6 +1,6 @@
 import {firstValueFrom} from 'rxjs';
 import {environment} from 'src/environments/environment';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {ResponseService} from './response.service';
 
@@ -32,7 +32,7 @@ export class ListService {
         }
     }
 
-    async addAnimeList(idAnime: number, idList: number = -1, categories: Array<any>) {
+    async addAnimeList(idAnime: number, categories: Array<any>, idList: number = -1) {
         try {
             if (idList == -1) {
                 const myList = await this.getMyList();
