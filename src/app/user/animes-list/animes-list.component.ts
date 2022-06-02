@@ -24,10 +24,9 @@ export class AnimesListComponent implements OnInit {
 
     async ngOnInit() {
         await this.getMyList();
-        const idAvoir: any = this.myList.filter((el) => el.label == 'A voir');
-
-        await this.getAnimeList(idAvoir[0].id);
-        this.initializeIdList(idAvoir[0].id);
+        const idAvoir: any = this.myList.filter((el) => el.label == 'À voir');
+        await this.getAnimeList(idAvoir[0]._id);
+        this.initializeIdList(idAvoir[0]._id);
     }
 
     async getMyList() {

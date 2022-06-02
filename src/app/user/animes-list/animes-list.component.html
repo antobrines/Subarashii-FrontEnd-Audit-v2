@@ -7,7 +7,7 @@
                 <button *ngFor="let element of myList" [ngClass]="{active: element.label == 'A voir'}"
                         class="nav-link noselect"
                         id="v-pills-1-tab" data-bs-toggle="pill" [attr.data-bs-target]="'#v-pills-' + element._id"
-                        type="button" (click)="getAnimeList(element.id)"
+                        type="button" (click)="getAnimeList(element._id)"
                         role="tab" aria-controls="v-pills-1" aria-selected="true" >
                     <img [attr.src]="'../../assets/img/SVG/userlists/'+ element.label + '.svg'"
                          class="img-fluid icon-nav icon-main"

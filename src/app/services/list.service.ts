@@ -122,7 +122,7 @@ export class ListService {
     async deleteAnimeList(idAnime: number, idList: number) {
         try {
             const $delete = this.http.delete(
-                environment.backUrl + 'lists/' + idList + '/animes/' + idAnime
+                environment.backUrl + 'lists/' + idList + '/anime/' + idAnime
             );
             const res: any = await firstValueFrom($delete);
             this.responseS.SuccessF(res);
