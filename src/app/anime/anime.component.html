@@ -3,27 +3,27 @@
     <div class="container">
         <div class="row">
             <div class="col-12 text-white text-center font-architects-daughter text-uppercase">
-                <h1>{{anime.originalName}}</h1>
-                <h2>{{anime.nomTraduit}}</h2>
+                <h1>{{anime.original_name}}</h1>
+                <h2>{{anime.name}}</h2>
             </div>
             <div class="col-12 text-center">
 
 
-                <div class="dropdown" *ngIf="!myAnimeIdSeeList.includes(anime.idApi)">
-                    <button class="border-0 bg-transparent p-0" [attr.id]="'dropdownMenuButton'+anime.idApi"
+                <div class="dropdown" *ngIf="!myAnimeIdSeeList.includes(anime.id)">
+                    <button class="border-0 bg-transparent p-0" [attr.id]="'dropdownMenuButton'+anime.id"
                             data-bs-toggle="dropdown" aria-expanded="false">
                         <img class="img-fluid icon-white me-2 hover-zoom" src="../../assets/img/SVG/add.svg" width="30"
                              height="30" alt="+ pour ajouter dans une liste">
                     </button>
 
-                    <ul class="dropdown-menu" [attr.aria-labelledby]="'dropdownMenuButton'+anime.idApi">
-                        <li *ngFor="let list of userLists" (click)="addAnimeList(anime.idApi, list.id,anime.genre_ids)"><a
+                    <ul class="dropdown-menu" [attr.aria-labelledby]="'dropdownMenuButton'+anime.id">
+                        <li *ngFor="let list of userLists" (click)="addAnimeList(anime.id, list.id,anime.genre_ids)"><a
                             class="dropdown-item cursorPointer">{{
                             list.nom }}</a></li>
                     </ul>
                 </div>
 
-                <div class="border-0 bg-transparent p-0" *ngIf="myAnimeIdSeeList.includes(anime.idApi)">
+                <div class="border-0 bg-transparent p-0" *ngIf="myAnimeIdSeeList.includes(anime.id)">
                     <img class="img-fluid" src="../../assets/img/SVG/added.svg" height="30" width="30" alt="Rond coché car animé ajouté à une liste">
                 </div>
             </div>
@@ -35,7 +35,7 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Découvrir</a></li>
-            <li class="breadcrumb-item active" aria-current="page">{{anime.originalName}}</li>
+            <li class="breadcrumb-item active" aria-current="page">{{anime.original_name}}</li>
         </ol>
     </nav>
 </section>
@@ -94,8 +94,8 @@
                                      width="15" alt="Point d'interrogation">
                                 <span class="fw-bold"> Status : </span>
                                 {{anime.enCours ? 'En cours' : 'Terminée'}}
-                                <small class="bg-main text-white fw-bold p-1">{{changeDate(anime.dateCommencement)}} >
-                                    {{changeDate(anime.dateFin)}}</small>
+                                <small class="bg-main text-white fw-bold p-1">{{changeDate(anime.first_air_date)}} >
+                                    {{changeDate(anime.last_air_date)}}</small> 
                             </p>
                             <p>
                                 <img class="img-fluid icon-main" src="../../assets/img/SVG/classification.svg"
@@ -108,7 +108,7 @@
                             <p class="fw-bold mb-1">
                                 Synopsis
                             </p>
-                            <p>{{anime.description}}</p>
+                            <p>{{anime.overview}}</p>
                         </div>
                     </div>
                 </div>

@@ -72,11 +72,13 @@ export class AnimeComponent implements OnInit {
             this.commentsBtn?.nativeElement.click();
         }
         console.log(this.anime)
+        /*
         console.log(this.saisons)
         console.log(this.episodesView)
         console.log(this.userLists)
         console.log(this.myAnimeIdSeeList)
         console.log(this.comments)
+        */
     }
 
     changeDate(date: Date): any {
@@ -139,9 +141,9 @@ export class AnimeComponent implements OnInit {
     }
 
     addTag() {
-        this.metaService.addTag({ name: 'description', content: 'Infos de l\'anime ' + this.anime.originalName });
+        this.metaService.addTag({ name: 'description', content: 'Infos de l\'anime ' + this.anime.original_name });
         this.metaService.addTag({ name: 'robots', content: 'index,follow' });
-        this.metaService.addTag({ property: 'og:title', content: this.anime.originalName });
-        this.title.setTitle(this.anime.originalName);
+        this.metaService.addTag({ property: 'og:title', content: this.anime.original_name });
+        this.title.setTitle(this.anime.original_name);
     }
 }
