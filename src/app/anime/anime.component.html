@@ -80,7 +80,7 @@
                     </div>
                     <div class="col-md-8 mt-3 mt-md-0">
                         <div class="d-flex justify-content-center justify-content-md-start">
-                            <div *ngFor="let genre of anime.genres">
+                            <div *ngFor="let genre of this.genres">
                                 <div class="bg-main text-white px-4 py-3 me-2" *ngIf="genre.nom != 'Animation'">
                                     <img class="icon-white" src="../../assets/img/SVG/genres/{{genre.id}}.svg"
                                          width="20" height="20" alt="Carte du genre {{genre.nom}}">

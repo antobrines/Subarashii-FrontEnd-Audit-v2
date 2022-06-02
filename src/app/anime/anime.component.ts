@@ -22,6 +22,7 @@ export class AnimeComponent implements OnInit {
     public myAnimeIdSeeList: number[] = [];
     public comment = new FormControl('');
     public comments: any[] = [];
+    public genres: any[] = [];
     public username: string = '';
     @ViewChild('episodesBtn') episodesBtn: ElementRef | undefined;
     @ViewChild('commentsBtn') commentsBtn: ElementRef | undefined;
@@ -52,6 +53,9 @@ export class AnimeComponent implements OnInit {
         }
         //await this.getEpisodeViews();
         //this.episodesView = await this.episodesView.map((el) => el.idApiEpisode);
+        this.genres = this.animeS.genres.filter((localGenre) => {
+            return this.anime.genres.some((animeGenre:any) => animeGenre.id === localGenre.idApi);
+        });
         await this.getMyList();
         this.myAnimeIdSeeList = await this.listS.myAnimeIdSeeList();
         this.router.events.subscribe((evt) => {
@@ -73,7 +77,6 @@ export class AnimeComponent implements OnInit {
         console.log(this.userLists)
         console.log(this.myAnimeIdSeeList)
         console.log(this.comments)
-        console.log(this.username)
     }
 
     changeDate(date: Date): any {
