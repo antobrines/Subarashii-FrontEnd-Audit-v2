@@ -10,6 +10,7 @@ import { StatisticsComponent } from './user/statistics/statistics.component';
 import { BannedComponent } from './user/banned/banned.component';
 import { RpgdComponent } from './RGPD/rgpd.component';
 import { ResetPasswordComponent } from './user/reset-password/reset-password.component';
+import { AdministrationComponent } from './administration/administration.component';
 
 const routes: Routes = [
     {
@@ -74,6 +75,10 @@ const routes: Routes = [
     {
         path: 'users/callback',
         component: ResetPasswordComponent,
+    },
+    {
+        path: 'administration',
+        component: AdministrationComponent,
     },
     { path: '**', redirectTo: '' },
 ];
