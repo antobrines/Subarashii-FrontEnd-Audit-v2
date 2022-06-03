@@ -43,11 +43,11 @@ export class ListService {
                 animeCategories: categories.map(String)
             };
             
-            const $patch = this.http.patch(
+            const $post = this.http.post(
                 environment.backUrl + 'lists/' + idList + '/anime/add',
                 json,
             );
-            const res = await firstValueFrom($patch);
+            const res = await firstValueFrom($post);
             this.responseS.SuccessF(res);
             return true;
         } catch (error) {

@@ -17,7 +17,7 @@
                     </button>
 
                     <ul class="dropdown-menu" [attr.aria-labelledby]="'dropdownMenuButton'+anime.id">
-                        <li *ngFor="let list of userLists" (click)="addAnimeList(anime.id, list._id,anime.genre_ids)"><a
+                        <li *ngFor="let list of userLists" (click)="addAnimeList(anime.id, list._id,mappedGenres)"><a
                             class="dropdown-item cursorPointer">{{
                             list.label }}</a></li>
                     </ul>,

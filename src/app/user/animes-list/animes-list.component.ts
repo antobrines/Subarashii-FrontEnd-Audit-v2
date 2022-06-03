@@ -31,6 +31,7 @@ export class AnimesListComponent implements OnInit {
 
     async getMyList() {
         this.myList = await this.listS.getMyList();
+        console.log(this.myList)
     }
 
     async addList() {
@@ -45,6 +46,7 @@ export class AnimesListComponent implements OnInit {
         if (!this.animeList[idList]) {
             this.animeList[idList] = await this.listS.getAnimeList(idList);
         }
+        console.log(this.animeList)
     }
 
     changeDate(date: Date): any {
@@ -72,7 +74,7 @@ export class AnimesListComponent implements OnInit {
     async deleteAnimeList(idAnime: number) {
         await this.listS.deleteAnimeList(idAnime, this.idList);
         this.animeList[this.idList] = this.animeList[this.idList].filter(
-            (el: any) => el.idApi != idAnime
+            (el: any) => el.id != idAnime
         );
     }
 }

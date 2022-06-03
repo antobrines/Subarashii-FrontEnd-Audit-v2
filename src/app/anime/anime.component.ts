@@ -23,6 +23,7 @@ export class AnimeComponent implements OnInit {
     public comment = new FormControl('');
     public comments: any[] = [];
     public genres: any[] = [];
+    public mappedGenres: any[] = [];
     public username: string = '';
     @ViewChild('episodesBtn') episodesBtn: ElementRef | undefined;
     @ViewChild('commentsBtn') commentsBtn: ElementRef | undefined;
@@ -46,7 +47,7 @@ export class AnimeComponent implements OnInit {
         this.anime = data.body;
         this.addTag()
         for (let index = 0; index < this.anime.number_of_seasons; index++) {
-            console.log(this.anime.seasons)
+            // console.log(this.anime.seasons)
             this.saisons.push({
                 nbSaison: index + 1,
                 // idSaison: this.anime.seasons[index].id,
@@ -58,6 +59,8 @@ export class AnimeComponent implements OnInit {
         this.genres = this.animeS.genres.filter((localGenre) => {
             return this.anime.genres.some((animeGenre:any) => animeGenre.id === localGenre.idApi);
         });
+        this.mappedGenres = this.genres.map(genre => {return {id: genre.idApi}})
+
         await this.getMyList();
         this.myAnimeIdSeeList = await this.listS.myAnimeIdSeeList();
         this.router.events.subscribe((evt) => {
@@ -73,7 +76,7 @@ export class AnimeComponent implements OnInit {
         if (element == 'comments') {
             this.commentsBtn?.nativeElement.click();
         }
-        //console.log(this.anime)
+        console.log(this.anime)
         /*
         console.log(this.saisons)
         console.log(this.episodesView)
