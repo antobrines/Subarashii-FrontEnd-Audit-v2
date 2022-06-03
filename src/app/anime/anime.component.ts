@@ -45,9 +45,11 @@ export class AnimeComponent implements OnInit {
         const data: any = await this.animeS.get(this.idAnime);
         this.anime = data.body;
         this.addTag()
-        for (let index = 0; index < this.anime.nbSaison; index++) {
+        for (let index = 0; index < this.anime.number_of_seasons; index++) {
+            console.log(this.anime.seasons)
             this.saisons.push({
                 nbSaison: index + 1,
+                // idSaison: this.anime.seasons[index].id,
                 episodes: [],
             });
         }
@@ -71,27 +73,31 @@ export class AnimeComponent implements OnInit {
         if (element == 'comments') {
             this.commentsBtn?.nativeElement.click();
         }
-        console.log(this.anime)
+        //console.log(this.anime)
         /*
         console.log(this.saisons)
         console.log(this.episodesView)
-        console.log(this.userLists)
-        console.log(this.myAnimeIdSeeList)
-        console.log(this.comments)
         */
+        console.log(this.userLists)
+        
     }
 
     changeDate(date: Date): any {
         return this.datePipe.transform(date, 'yyyy');
     }
 
-    async getEpisodesSaison(idSaison: number = 1) {
-        if (this.saisons[idSaison - 1].episodes.length == 0) {
+    async getEpisodesSaison(nbSaison: number = 1) {
+        /*
+        console.log(nbSaison)
+        console.log(this.saisons)
+        console.log(this.saisons[nbSaison -1])
+        */
+        if (this.saisons[nbSaison - 1].episodes.length == 0) {
             const data = await this.animeS.getEpisodesSaison(
                 this.anime.id,
-                idSaison
+                nbSaison // this.saisons[nbSaison - 1].idSaison
             );
-            this.saisons[idSaison - 1].episodes = data;
+            this.saisons[nbSaison - 1].episodes = data;
         }
     }
 
@@ -126,8 +132,12 @@ export class AnimeComponent implements OnInit {
     }
 
     async getComment() {
+        /**
+         *   disabled 'till new comment routes
+
         this.username = this.authS.userConnected()?.username;
         this.comments = await this.commentS.getComment(this.idAnime);
+        */
     }
 
     async addComment() {

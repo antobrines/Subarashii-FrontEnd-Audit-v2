@@ -17,10 +17,10 @@
                     </button>
 
                     <ul class="dropdown-menu" [attr.aria-labelledby]="'dropdownMenuButton'+anime.id">
-                        <li *ngFor="let list of userLists" (click)="addAnimeList(anime.id, list.id,anime.genre_ids)"><a
+                        <li *ngFor="let list of userLists" (click)="addAnimeList(anime.id, list._id,anime.genre_ids)"><a
                             class="dropdown-item cursorPointer">{{
-                            list.nom }}</a></li>
-                    </ul>
+                            list.label }}</a></li>
+                    </ul>,
                 </div>
 
                 <div class="border-0 bg-transparent p-0" *ngIf="myAnimeIdSeeList.includes(anime.id)">
@@ -76,7 +76,7 @@
 
                 <div class="row my-5">
                     <div class="col-md-4 text-center">
-                        <img class="img-fluid" src={{anime.image}} alt="Image de l'animé">
+                        <img *ngIf="anime.backdrop_path" class="img-fluid" src="{{'https://image.tmdb.org/t/p/w500/' + anime.backdrop_path}}" alt="Image de l'animé">
                     </div>
                     <div class="col-md-8 mt-3 mt-md-0">
                         <div class="d-flex justify-content-center justify-content-md-start">
@@ -138,21 +138,21 @@
                             <div class="accordion-body p-0">
                                 <div class="row">
                                     <div class="col-12 mb-1 noselect position-relative"
-                                         *ngFor="let episode of saison.episodes">
-                                        <input class="episode-input" [attr.id]="episode.idApi" type="checkbox"
+                                         *ngFor="let episode of saison.episodes.episodes">
+                                        <input class="episode-input" [attr.id]="episode.id" type="checkbox"
                                                name="episodes"
-                                               [checked]="episodesView.includes(episode.idApi)"/>
-                                        <label class="episode-label px-5 py-3" [attr.for]="episode.idApi"
-                                               (click)="changeStateViewEpisode($event, episode.idApi)">
-                                            Episode {{episode.numeroEpisode}} : {{episode.nom}}
-                                            <img *ngIf="episodesView.includes(episode.idApi)"
+                                               [checked]="episodesView.includes(episode.id)"/>
+                                        <label class="episode-label px-5 py-3" [attr.for]="episode.id"
+                                               (click)="changeStateViewEpisode($event, episode.id)">
+                                            Episode {{episode.episode_number}} : {{episode.name}}
+                                            <img *ngIf="episodesView.includes(episode.id)"
                                                  src="../../assets/img/SVG/see.svg" width="20"
                                                  height="20" alt="Oeil indiquant que l'épisode a été vu">
-                                            <img *ngIf="!episodesView.includes(episode.idApi)"
+                                            <img *ngIf="!episodesView.includes(episode.id)"
                                                  src="../../assets/img/SVG/notseen.svg"
                                                  width="20" height="20" alt="Oeil barré indiquant que l'épisode n'a pas été vu ">
 
-                                        </label>
+                                        </label>                                 
                                     </div>
                                 </div>
                             </div>
