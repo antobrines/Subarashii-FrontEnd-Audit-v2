@@ -65,17 +65,20 @@ export class ListService {
         }
     }
 
-    async changeStateViewEpisode(idAnime: number, idEpisode: number) {
+    async changeStateViewEpisode(idAnime: number, idEpisode: number,idList: number) {
         try {
-            const put$ = this.http.put(
+
+            const patch$ = this.http.patch(
                 environment.backUrl +
-                'views/animes/' +
+                'lists/' + 
+                idList +
+                '/anime/' +
                 idAnime +
-                '/episodes/' +
+                '/see',
                 idEpisode,
-                null
-            );
-            const data: any = await firstValueFrom(put$);
+            )
+
+            const data: any = await firstValueFrom(patch$);
             return data.body;
         } catch (error) {
             return this.responseS.ErrorF(error);

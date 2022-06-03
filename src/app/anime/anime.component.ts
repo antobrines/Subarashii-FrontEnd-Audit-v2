@@ -102,10 +102,11 @@ export class AnimeComponent implements OnInit {
         }
     }
 
-    async changeStateViewEpisode(event: any, idEpisode: number) {
+    async changeStateViewEpisode(event: any, idEpisode: number,idList: number) {
         const data = await this.listS.changeStateViewEpisode(
             this.anime.id,
-            idEpisode
+            idEpisode,
+            0
         );
         const target = event.target;
         var element = target.getElementsByTagName('img')[0];

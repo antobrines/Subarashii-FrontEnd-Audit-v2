@@ -51,7 +51,7 @@
                     Infos
                 </button>
             </li>
-            <li class="nav-item" role="presentation">
+            <li *ngIf="anime.seasons.length" class="nav-item" role="presentation">
                 <button class="nav-link" id="pills-episodes-tab" data-bs-toggle="pill" data-bs-target="#pills-episodes"
                         type="button" role="tab" aria-controls="pills-episodes" aria-selected="false"
                         (click)="getEpisodesSaison()"
@@ -143,7 +143,7 @@
                                                name="episodes"
                                                [checked]="episodesView.includes(episode.id)"/>
                                         <label class="episode-label px-5 py-3" [attr.for]="episode.id"
-                                               (click)="changeStateViewEpisode($event, episode.id)">
+                                               (click)="changeStateViewEpisode($event, episode.id,0)">
                                             Episode {{episode.episode_number}} : {{episode.name}}
                                             <img *ngIf="episodesView.includes(episode.id)"
                                                  src="../../assets/img/SVG/see.svg" width="20"
