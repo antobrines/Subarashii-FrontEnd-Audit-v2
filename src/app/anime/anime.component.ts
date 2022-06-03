@@ -76,13 +76,11 @@ export class AnimeComponent implements OnInit {
         if (element == 'comments') {
             this.commentsBtn?.nativeElement.click();
         }
-        console.log(this.anime)
         /*
+        console.log(this.anime)
         console.log(this.saisons)
         console.log(this.episodesView)
-        */
-        console.log(this.userLists)
-        
+        */        
     }
 
     changeDate(date: Date): any {

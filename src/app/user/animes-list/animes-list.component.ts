@@ -31,7 +31,6 @@ export class AnimesListComponent implements OnInit {
 
     async getMyList() {
         this.myList = await this.listS.getMyList();
-        console.log(this.myList)
     }
 
     async addList() {
@@ -46,7 +45,6 @@ export class AnimesListComponent implements OnInit {
         if (!this.animeList[idList]) {
             this.animeList[idList] = await this.listS.getAnimeList(idList);
         }
-        console.log(this.animeList)
     }
 
     changeDate(date: Date): any {
