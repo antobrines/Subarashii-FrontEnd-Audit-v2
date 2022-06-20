@@ -49,7 +49,7 @@ export class AnimeComponent implements OnInit {
         this.anime = data.body;
         this.addTag()
 
-        for (let index = 0; index <= this.anime.number_of_seasons; index++) {
+        for (let index = 0; index < this.anime.number_of_seasons; index++) {
             // console.log(this.anime.seasons)
             this.saisons.push({
                 nbSaison: index + 1,
@@ -115,10 +115,7 @@ export class AnimeComponent implements OnInit {
             if(idContainerList !== "TypeError: Cannot read properties of null (reading 'list')" && idContainerList){
                 usedListId = idContainerList 
             }else{
-                //console.log(this.userLists)
                 const toSeeList: any = this.userLists.filter((el) => el.label === 'À voir');
-                // console.log(toSeeList)
-                console.log("Length : " + toSeeList.length)
                 await this.addAnimeList(this.anime.id,toSeeList[0]._id,this.mappedGenres);
                 usedListId = toSeeList[0]._id                
             }
@@ -129,8 +126,10 @@ export class AnimeComponent implements OnInit {
         const data = await this.listS.changeStateViewEpisode(
             this.anime.id,
             idEpisode,
-            usedListId
+            usedListId,
+            this.anime.episodesWatched.find((ep:any) => ep === String(idEpisode)) != undefined
         );
+
         const target = event.target;
         var element = target.getElementsByTagName('img')[0];
         if (target.tagName == 'IMG') {

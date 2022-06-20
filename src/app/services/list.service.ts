@@ -70,8 +70,10 @@ export class ListService {
         }
     }
 
-    async changeStateViewEpisode(idAnime: number, idEpisode: number,idList: number) {
+    async changeStateViewEpisode(idAnime: number, idEpisode: number,idList: number,isSeen: boolean) {
         try {
+
+            let seeOrUnsee = (isSeen ? '/unsee/' :  '/see/')
 
             const patch$ = this.http.patch(
                 environment.backUrl +
@@ -79,7 +81,7 @@ export class ListService {
                 idList +
                 '/anime/' +
                 idAnime +
-                '/see/',
+                seeOrUnsee,
                 {"episodeId" : idEpisode},
             )
 
