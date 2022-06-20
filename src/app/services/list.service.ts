@@ -11,9 +11,14 @@ export class ListService {
     constructor(private http: HttpClient, private responseS: ResponseService) {
     }
 
-    async getMyList() {
+    async getMyList(animeId = 0) {
         try {
-            const $get = this.http.get(environment.backUrl + 'lists');
+            let $get
+            if(animeId > 0) {
+                $get = this.http.get(environment.backUrl + 'lists?containing=' + animeId);
+            }else{
+                $get = this.http.get(environment.backUrl + 'lists');
+            }
             const data: any = await firstValueFrom($get);
             return data.body;
         } catch (error) {
@@ -74,8 +79,8 @@ export class ListService {
                 idList +
                 '/anime/' +
                 idAnime +
-                '/see',
-                idEpisode,
+                '/see/',
+                {"episodeId" : idEpisode},
             )
 
             const data: any = await firstValueFrom(patch$);

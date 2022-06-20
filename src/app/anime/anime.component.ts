@@ -44,9 +44,12 @@ export class AnimeComponent implements OnInit {
 
     async ngOnInit() {
         const data: any = await this.animeS.get(this.idAnime);
+        console.log(data)
+
         this.anime = data.body;
         this.addTag()
-        for (let index = 0; index < this.anime.number_of_seasons; index++) {
+
+        for (let index = 0; index <= this.anime.number_of_seasons; index++) {
             // console.log(this.anime.seasons)
             this.saisons.push({
                 nbSaison: index + 1,
@@ -62,6 +65,7 @@ export class AnimeComponent implements OnInit {
         this.mappedGenres = this.genres.map(genre => {return {id: genre.idApi}})
 
         await this.getMyList();
+        console.log(this.userLists)
         this.myAnimeIdSeeList = await this.listS.myAnimeIdSeeList();
         this.router.events.subscribe((evt) => {
             if (evt instanceof NavigationEnd) {
@@ -103,10 +107,29 @@ export class AnimeComponent implements OnInit {
     }
 
     async changeStateViewEpisode(event: any, idEpisode: number,idList: number) {
+
+        let usedListId
+        if(idList <= 0 ){
+            let idContainerList = await this.listS.getMyList(this.idAnime)
+            console.log(idContainerList)
+            if(idContainerList !== "TypeError: Cannot read properties of null (reading 'list')" && idContainerList){
+                usedListId = idContainerList 
+            }else{
+                //console.log(this.userLists)
+                const toSeeList: any = this.userLists.filter((el) => el.label === 'À voir');
+                // console.log(toSeeList)
+                console.log("Length : " + toSeeList.length)
+                await this.addAnimeList(this.anime.id,toSeeList[0]._id,this.mappedGenres);
+                usedListId = toSeeList[0]._id                
+            }
+        }else{
+            usedListId = idList
+        }
+
         const data = await this.listS.changeStateViewEpisode(
             this.anime.id,
             idEpisode,
-            0
+            usedListId
         );
         const target = event.target;
         var element = target.getElementsByTagName('img')[0];
@@ -119,7 +142,7 @@ export class AnimeComponent implements OnInit {
             element.src = '../../assets/img/SVG/notseen.svg';
         }
     }
-
+    
     async getEpisodeViews() {
         this.episodesView = await this.listS.getEpisodeViews(this.anime.id);
     }
