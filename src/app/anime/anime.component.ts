@@ -45,20 +45,16 @@ export class AnimeComponent implements OnInit {
     async ngOnInit() {
         const data: any = await this.animeS.get(this.idAnime);
         console.log(data)
-
         this.anime = data.body;
         this.addTag()
 
         for (let index = 0; index < this.anime.number_of_seasons; index++) {
-            // console.log(this.anime.seasons)
             this.saisons.push({
                 nbSaison: index + 1,
-                // idSaison: this.anime.seasons[index].id,
                 episodes: [],
             });
         }
-        //await this.getEpisodeViews();
-        //this.episodesView = await this.episodesView.map((el) => el.idApiEpisode);
+        this.episodesView = Array.from(this.anime.episodesWatched,Number);
         this.genres = this.animeS.genres.filter((localGenre) => {
             return this.anime.genres.some((animeGenre:any) => animeGenre.id === localGenre.idApi);
         });
@@ -79,12 +75,7 @@ export class AnimeComponent implements OnInit {
         }
         if (element == 'comments') {
             this.commentsBtn?.nativeElement.click();
-        }
-        /*
-        console.log(this.anime)
-        console.log(this.saisons)
-        console.log(this.episodesView)
-        */        
+        }  
     }
 
     changeDate(date: Date): any {
@@ -92,15 +83,10 @@ export class AnimeComponent implements OnInit {
     }
 
     async getEpisodesSaison(nbSaison: number = 1) {
-        /*
-        console.log(nbSaison)
-        console.log(this.saisons)
-        console.log(this.saisons[nbSaison -1])
-        */
         if (this.saisons[nbSaison - 1].episodes.length == 0) {
             const data = await this.animeS.getEpisodesSaison(
                 this.anime.id,
-                nbSaison // this.saisons[nbSaison - 1].idSaison
+                nbSaison
             );
             this.saisons[nbSaison - 1].episodes = data;
         }
@@ -111,7 +97,6 @@ export class AnimeComponent implements OnInit {
         let usedListId
         if(idList <= 0 ){
             let idContainerList = await this.listS.getMyList(this.idAnime)
-            console.log(idContainerList)
             if(idContainerList !== "TypeError: Cannot read properties of null (reading 'list')" && idContainerList){
                 usedListId = idContainerList 
             }else{
@@ -127,8 +112,10 @@ export class AnimeComponent implements OnInit {
             this.anime.id,
             idEpisode,
             usedListId,
-            this.anime.episodesWatched.find((ep:any) => ep === String(idEpisode)) != undefined
+            this.episodesView.find((ep:any) => ep === idEpisode) != undefined
         );
+    
+        this.episodesView = Array.from(data.episodesWatched,Number);
 
         const target = event.target;
         var element = target.getElementsByTagName('img')[0];
@@ -140,10 +127,6 @@ export class AnimeComponent implements OnInit {
         } else {
             element.src = '../../assets/img/SVG/notseen.svg';
         }
-    }
-    
-    async getEpisodeViews() {
-        this.episodesView = await this.listS.getEpisodeViews(this.anime.id);
     }
 
     async getMyList() {
