@@ -73,7 +73,7 @@ export class AppComponent implements OnInit {
                           })
                         : this.metaService.removeTag("property='og:title'");
 
-                    data.data.ogDescription
+                    data.ogDescription
                         ? this.metaService.updateTag({
                               property: 'og:description',
                               content: data.ogDescription,

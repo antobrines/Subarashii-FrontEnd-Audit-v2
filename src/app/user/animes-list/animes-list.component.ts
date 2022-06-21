@@ -72,7 +72,7 @@ export class AnimesListComponent implements OnInit {
     async deleteAnimeList(idAnime: number) {
         await this.listS.deleteAnimeList(idAnime, this.idList);
         this.animeList[this.idList] = this.animeList[this.idList].filter(
-            (el: any) => el.idApi != idAnime
+            (el: any) => el.id != idAnime
         );
     }
 }
