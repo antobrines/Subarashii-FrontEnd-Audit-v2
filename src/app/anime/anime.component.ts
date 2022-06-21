@@ -137,6 +137,11 @@ export class AnimeComponent implements OnInit {
     }
 
     async addAnimeList(idAnime: number, idList: number,categories: Array<any>) {
+        categories = categories.filter(catTmp => catTmp.id !== 16).map(cat => { 
+            cat = this.animeS.genres.find(genre => genre.idApi == cat.id)
+            if(cat.name !== undefined) cat = cat.name
+            return cat
+        })
         await this.listS.addAnimeList(idAnime,categories, idList);
         this.myAnimeIdSeeList.push(idAnime);
     }
