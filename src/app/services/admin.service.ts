@@ -20,8 +20,6 @@ export class AdminService {
         });
         const data: any = await firstValueFrom(get$);
 
-        console.log(data);
-
         return data.body;
     }
 
@@ -30,7 +28,6 @@ export class AdminService {
             environment.backUrl + 'users/ban-informations/' + userId
         );
         const data: any = await firstValueFrom($get);
-        console.log(data);
         return data.body;
     }
 

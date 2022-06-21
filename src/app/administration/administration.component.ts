@@ -27,7 +27,7 @@ export class AdministrationComponent implements OnInit {
     }
 
     async getUser() {
-        return await this.adminS.getUser(this.userIdSelected);
+        return this.adminS.getUser(this.userIdSelected);
     }
 
     getUserSelected(userId: string, userName: string) {
@@ -67,7 +67,6 @@ export class AdministrationComponent implements OnInit {
 
         this.users = this.users.map((el) => {
             if (el._id == user._id) {
-                console.log(el);
                 return user;
             }
             return el;

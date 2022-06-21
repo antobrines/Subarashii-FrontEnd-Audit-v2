@@ -30,7 +30,6 @@ export class AuthService {
             this.responseS.SuccessF(dataRequest);
             return true;
         } catch (error: any) {
-            console.log(error);
             if (error.error.message.includes('Vous êtes banni')) {
                 this.reasonBan = error.error.message;
                 this.router.navigate(['/banned']);
