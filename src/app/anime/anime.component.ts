@@ -118,7 +118,7 @@ export class AnimeComponent implements OnInit {
         this.episodesView = Array.from(data.episodesWatched,Number);
 
         const target = event.target;
-        var element = target.getElementsByTagName('img')[0];
+        let element = target.getElementsByTagName('img')[0];
         if (target.tagName == 'IMG') {
             element = target;
         }
