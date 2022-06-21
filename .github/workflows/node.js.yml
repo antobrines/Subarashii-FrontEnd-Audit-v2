@@ -14,15 +14,3 @@ jobs:
           working-directory: app
           browser: chrome
           config: pageLoadTimeout=100000,baseUrl=https://subarashii-front-end-audit-v2-mido57iq6-antobrines.vercel.app/login
-
-      - uses: actions/upload-artifact@v2
-        if: failure()
-        with:
-          name: cypress-screenshots
-          path: app/cypress/screenshots
-
-      - uses: actions/upload-artifact@v2
-        if: always()
-        with:
-          name: cypress-videos
-          path: app/cypress/videos
