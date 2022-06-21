@@ -23,4 +23,4 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v4
         with:
-          start: npm run serve
+          config: pageLoadTimeout=100000,baseUrl=https://subarashii-front-end-audit-v2-mido57iq6-antobrines.vercel.app/login
