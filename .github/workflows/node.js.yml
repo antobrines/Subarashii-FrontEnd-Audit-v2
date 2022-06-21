@@ -11,7 +11,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
     - name: Install Node.js
       run: |
         curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
