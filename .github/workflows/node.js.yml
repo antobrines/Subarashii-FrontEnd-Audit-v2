@@ -8,48 +8,25 @@ on:
     branches: [ "develop" ]
 
 jobs:  
-  tests:
-
+  test:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [16.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
     steps:
-      - uses: actions/checkout@v3
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-      - name: Install
-        uses: cypress-io/github-action@v3
-        with:
-          runTests: false
-      - name: Run CRA Build
-        uses: actions/checkout@v3
-        run: npm run build
-      - name: Save Cypress artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: build
-          if-no-files-found: error
-          path: build
-  
-  cypress:
-    runs-on: ubuntu-latest
-    needs: tests
-    container: cypress/browsers:node14.17.0-chrome91-ff89
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Download Cypress artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: build
-          path: build
-
+    - uses: actions/checkout@v2
+    - name: Install Node.js
+      run: |
+        curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+        sudo apt-get install -y nodejs
+    - name: Install Yarn
+      run: |
+        curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+        echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+        sudo apt-get update && sudo apt-get install -y yarn
+    - name: Install dependencies
+      run: |
+        yarn install
+    - name: Build the source code
+      run: |
+        yarn build
+    - name: Run cypress tests
+      run: |
+        yarn cypress:run
