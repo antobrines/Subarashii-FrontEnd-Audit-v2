@@ -25,6 +25,7 @@
 
 :root {
     --main-color: #ff473f;
+    --main-light-red: #ffe7e6;
     --main-grey: #f3f3f3;
     --main-white: #fff;
 }
@@ -91,6 +92,10 @@ h3 {
     font-size: 14px;
 }
 
+.f-size10 {
+    font-size: 10px;
+}
+
 a {
     color: var(--main-color);
     text-decoration: none;
@@ -142,9 +147,18 @@ textarea {
     border-color: var(--main-color);
 }
 
+.form-select:focus {
+    border-color: var(--main-color);
+    box-shadow: none;
+}
+
 .form-check-input:checked {
     background-color: var(--main-color);
     border-color: var(--main-color);
+}
+
+textarea {
+    resize: none;
 }
 
 /*
@@ -190,6 +204,16 @@ textarea {
 .icon-black {
     filter: invert(0%) sepia(0%) saturate(7471%) hue-rotate(260deg)
         brightness(92%) contrast(108%);
+}
+
+.icon-primary {
+    filter: invert(42%) sepia(62%) saturate(6637%) hue-rotate(209deg)
+        brightness(99%) contrast(104%);
+}
+
+.icon-danger {
+    filter: invert(37%) sepia(77%) saturate(3421%) hue-rotate(333deg)
+        brightness(87%) contrast(99%);
 }
 
 /*

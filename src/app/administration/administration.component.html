@@ -1,0 +1,182 @@
+<section>
+    <div class="container my-5">
+        <div class="title mb-5">
+            <h1>Administration</h1>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-striped">
+                    <caption>Liste des utilisateurs du site</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Nom d'utilisateur</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Etat</th>
+                            <th class="text-end" scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let user of users">
+                            <th scope="row">{{ user.username }}</th>
+                            <th scope="row">{{ user.email }}</th>
+                            <td *ngIf="!user.isBanned">
+                                <span class="bg-primary text-white fw-bold px-1">Actif</span>
+
+                                <small *ngIf="user.ban" class="d-flex align-items-center f-size10 text-primary"><img
+                                        class="me-1 icon-primary" src="../../assets/img/SVG/unban.svg" width="10"
+                                        height="10" alt="Icon utilisateur suspendu">{{ user.ban.lastDate |
+                                    date:'dd/MM/yyyy'
+                                    }}</small>
+                            </td>
+                            <td *ngIf="user.isBanned">
+                                <span class="bg-danger text-white fw-bold px-1">Banni</span>
+                                <small class="d-flex align-items-center f-size10 text-danger"><img
+                                        class="me-1 icon-danger" src="../../assets/img/SVG/ban.svg" width="10"
+                                        height="10" alt="Icon utilisateur suspendu">{{ user.ban.date | date:'dd/MM/yyyy'
+                                    }}</small>
+                            </td>
+                            <td class="text-end">
+                                <button (click)="userComments.length = 0;getUserComments(user._id, user.username)"
+                                    class="btn btn-secondary rounded-0 text-white" data-bs-toggle="modal"
+                                    data-bs-target="#userCommentsModal"><img src="../../assets/img/SVG/comment.svg"
+                                        width="20" height="20" alt="Voir commentaires"></button>
+                                <button *ngIf="!user.isBanned" (click)="getUserSelected(user._id, user.username)"
+                                    class="btn bg-danger ms-2 rounded-0 text-white" data-bs-toggle="modal"
+                                    data-bs-target="#suspendUserModal"><img class="icon-white"
+                                        src="../../assets/img/SVG/ban.svg" width="20" height="20"
+                                        alt="Suspendre utilisateur "></button>
+                                <button *ngIf="user.isBanned" (click)="getUserSelected(user._id, user.username)"
+                                    class="btn bg-primary ms-2 rounded-0 text-white" data-bs-toggle="modal"
+                                    data-bs-target="#unbanUserModal"><img class="icon-white"
+                                        src="../../assets/img/SVG/unban.svg" width="20" height="20"
+                                        alt="Suspendre utilisateur "></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-12 d-flex justify-content-center align-items-center mt-4">
+                <button class="btn btn-main me-2 px-2 py-1" (click)="previousPage()"
+                    [disabled]="!currentParams.prevPage"><img class="icon-white" src="../../assets/img/SVG/previous.svg"
+                        width="20" height="20" alt="Page précédente"></button>
+                <p class="fw-bold mb-0 px-2">{{ currentParams.page }}</p>
+                <button class="btn btn-main ms-2 px-2 py-1" (click)="nextPage()"
+                    [disabled]="!currentParams.nextPage"><img class="icon-white" src="../../assets/img/SVG/next.svg"
+                        width="20" height="20" alt="Page suivante"></button>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="modal fade" id="suspendUserModal" tabindex="-1" aria-labelledby="suspendUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Suspendre {{ userNameSelected }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="reason">Motif</label>
+                        <textarea class="form-control" [formControl]="reason" id="reason" rows="2"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-select" [formControl]="duration" aria-label="select ban duration">
+                            <option selected>Durée</option>
+                            <option value="1">1 jour</option>
+                            <option value="7">1 semaine</option>
+                            <option value="30">1 mois</option>
+                            <option value="182">6 mois</option>
+                            <option value="365">1 an</option>
+                            <option value="-1">Indéfiniment</option>
+                        </select>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <button type="button" (click)="banUser()" class="btn btn-main"
+                            data-bs-dismiss="modal">Valider</button>
+                        <button type="button" class="btn btn-secondary rounded-0 ms-2" data-bs-dismiss="modal">Annuler
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="unbanUserModal" tabindex="-1" aria-labelledby="unbanUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center">Voulez-vous vraiment réactiver le compte de {{ userNameSelected }} ?
+                </h5>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="d-flex justify-content-center">
+                        <button (click)="unbanUser()" type="button" class="btn btn-main"
+                            data-bs-dismiss="modal">Oui</button>
+                        <button type="button" class="btn btn-secondary rounded-0 ms-2" data-bs-dismiss="modal">Non
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="userCommentsModal" tabindex="-1" aria-labelledby="userCommentsModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Commentaires de {{ userNameSelected }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p *ngIf="userComments.length == 0">Cet utilisateur n'a pas laissé de commentaire</p>
+                <div *ngFor="let comment of userComments">
+
+                    <div class="row align-items-center">
+                        <div class="col-sm-4 col-lg-2">
+                            <img *ngIf="comment.anime.poster_path"
+                                src="https://image.tmdb.org/t/p/w500{{comment.anime.poster_path}}"
+                                class="img-fluid d-none d-sm-block" alt="Image de l'anime {{comment.anime.name}}">
+                            <img *ngIf="!comment.anime.poster_path" src="assets/img/noimage.png"
+                                class="img-fluid d-none d-sm-block" alt="Image non trouvée">
+
+                            <button (click)="deleteComment(comment._id)"
+                                class="btn btn-danger rounded-0 w-100 mt-xs-0 mt-sm-2 d-block d-lg-none">
+                                Supprimer
+                            </button>
+                        </div>
+                        <div class="col-sm-8 col-lg-9">
+                            <div class="comment">
+                                <p class="fw-bold">{{ comment.anime.name }} <small class="fw-normal">{{
+                                        comment.created_at |
+                                        date:'dd/MM/yyyy'
+                                        }}</small>
+                                </p>
+                                <p>{{ comment.content }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="d-none d-lg-block col-lg-1">
+                            <button (click)="deleteComment(comment._id)" class="btn btn-danger rounded-0">
+                                <img src="../../assets/img/SVG/delete.svg" width="20" height="20" class="img-fluid"
+                                    alt="Supprimer commentaire">
+                            </button>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

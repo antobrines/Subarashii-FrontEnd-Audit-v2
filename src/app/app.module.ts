@@ -23,6 +23,7 @@ import { NgChartsModule } from 'ng2-charts';
 import { BannedComponent } from './user/banned/banned.component';
 import { RpgdComponent } from './RGPD/rgpd.component';
 import { ResetPasswordComponent } from './user/reset-password/reset-password.component';
+import { AdministrationComponent } from './administration/administration.component';
 
 export function tokenGetter() {
     return localStorage.getItem('token') ? localStorage.getItem('token') : '';
@@ -44,6 +45,7 @@ export function tokenGetter() {
         BannedComponent,
         RpgdComponent,
         ResetPasswordComponent,
+        AdministrationComponent,
     ],
     imports: [
         BrowserModule,

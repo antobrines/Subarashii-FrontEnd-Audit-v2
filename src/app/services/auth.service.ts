@@ -5,15 +5,18 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { firstValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import jwt_decode from 'jwt-decode';
+import { Router } from '@angular/router';
 
 @Injectable({
     providedIn: 'root',
 })
 export class AuthService {
+    reasonBan = '';
     constructor(
         private http: HttpClient,
         private jwtHelper: JwtHelperService,
-        private responseS: ResponseService
+        private responseS: ResponseService,
+        private router: Router
     ) {}
 
     async login(data: any): Promise<boolean> {
@@ -27,16 +30,19 @@ export class AuthService {
             this.responseS.SuccessF(dataRequest);
             return true;
         } catch (error: any) {
-            if (error.error.message == 'Vous êtes banni') {
-                window.location.href = '/banned';
+            if (error.error.message.includes('Vous êtes banni')) {
+                this.reasonBan = error.error.message;
+                this.router.navigate(['/banned']);
             }
-            this.responseS.ErrorF(error.error);
             return false;
         }
     }
 
     async register(data: any): Promise<boolean> {
-        const request = this.http.post(environment.backUrl + 'users/register', data);
+        const request = this.http.post(
+            environment.backUrl + 'users/register',
+            data
+        );
         try {
             const res = await firstValueFrom(request);
             this.responseS.SuccessF(res);
@@ -51,6 +57,12 @@ export class AuthService {
         const token = this.jwtHelper.tokenGetter();
         if (token) return !this.jwtHelper.isTokenExpired(token);
         return false;
+    }
+
+    public isAdmin(): boolean {
+        const token: any = localStorage.getItem('token');
+        const decodedToken: any = jwt_decode(token, { header: false });
+        return decodedToken.roles.includes('admin');
     }
 
     public logout() {
