@@ -9,74 +9,60 @@
                     <thead>
                         <tr>
                             <th scope="col">Nom d'utilisateur</th>
+                            <th scope="col">Email</th>
                             <th scope="col">Etat</th>
                             <th class="text-end" scope="col">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th width="25%" scope="row">John</th>
-                            <td>
+                        <tr *ngFor="let user of users">
+                            <th width="20%" scope="row">{{ user.username }}</th>
+                            <th width="35%" scope="row">{{ user.email }}</th>
+                            <td *ngIf="!user.isBanned">
                                 <span class="bg-primary text-white fw-bold px-1">Actif</span>
-                                <small class="d-flex align-items-center f-size10 text-primary"><img
+
+                                <small *ngIf="user.ban" class="d-flex align-items-center f-size10 text-primary"><img
                                         class="me-1 icon-primary" src="../../assets/img/SVG/unban.svg" width="10"
-                                        height="10" alt="Icon utilisateur suspendu">20/05/2022</small>
+                                        height="10" alt="Icon utilisateur suspendu">{{ user.ban.lastDate |
+                                    date:'dd/MM/yyyy'
+                                    }}</small>
+                            </td>
+                            <td *ngIf="user.isBanned">
+                                <span class="bg-danger text-white fw-bold px-1">Banni</span>
+                                <small class="d-flex align-items-center f-size10 text-danger"><img
+                                        class="me-1 icon-danger" src="../../assets/img/SVG/ban.svg" width="10"
+                                        height="10" alt="Icon utilisateur suspendu">{{ user.ban.date | date:'dd/MM/yyyy'
+                                    }}</small>
                             </td>
                             <td class="text-end">
-                                <button class="btn btn-secondary rounded-0 text-white" data-bs-toggle="modal"
+                                <button (click)="userComments.length = 0;getUserComments(user._id, user.username)"
+                                    class="btn btn-secondary rounded-0 text-white" data-bs-toggle="modal"
                                     data-bs-target="#userCommentsModal"><img src="../../assets/img/SVG/comment.svg"
                                         width="20" height="20" alt="Voir commentaires"></button>
-                                <button class="btn bg-danger ms-2 rounded-0 text-white" data-bs-toggle="modal"
+                                <button *ngIf="!user.isBanned" (click)="getUserSelected(user._id, user.username)"
+                                    class="btn bg-danger ms-2 rounded-0 text-white" data-bs-toggle="modal"
                                     data-bs-target="#suspendUserModal"><img class="icon-white"
                                         src="../../assets/img/SVG/ban.svg" width="20" height="20"
                                         alt="Suspendre utilisateur "></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th width="25%" scope="row">John</th>
-                            <td><span class="bg-danger text-white fw-bold px-1">Banni</span>
-                                <small class="d-flex align-items-center f-size10 text-danger"><img
-                                        class="me-1 icon-danger" src="../../assets/img/SVG/ban.svg" width="10"
-                                        height="10" alt="Icon utilisateur suspendu">20/05/2022</small>
-                            </td>
-                            <td class="text-end">
-                                <button class="btn btn-secondary rounded-0 text-white" data-bs-toggle="modal"
-                                    data-bs-target="#userCommentsModal"><img src="../../assets/img/SVG/comment.svg"
-                                        width="20" height="20" alt="Voir commentaires"></button>
-                                <button class="btn bg-primary ms-2 rounded-0 text-white" data-bs-toggle="modal"
+                                <button *ngIf="user.isBanned" (click)="getUserSelected(user._id, user.username)"
+                                    class="btn bg-primary ms-2 rounded-0 text-white" data-bs-toggle="modal"
                                     data-bs-target="#unbanUserModal"><img class="icon-white"
                                         src="../../assets/img/SVG/unban.svg" width="20" height="20"
                                         alt="Suspendre utilisateur "></button>
                             </td>
                         </tr>
-                        <tr>
-                            <th width="25%" scope="row">John</th>
-                            <td><span class="bg-primary text-white fw-bold px-1">Actif</span></td>
-                            <td class="text-end">
-                                <button class="btn btn-secondary rounded-0 text-white" data-bs-toggle="modal"
-                                    data-bs-target="#userCommentsModal"><img src="../../assets/img/SVG/comment.svg"
-                                        width="20" height="20" alt="Voir commentaires"></button>
-                                <button class="btn bg-danger ms-2 rounded-0 text-white" data-bs-toggle="modal"
-                                    data-bs-target="#suspendUserModal"><img class="icon-white"
-                                        src="../../assets/img/SVG/ban.svg" width="20" height="20"
-                                        alt="Suspendre utilisateur "></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th width="25%" scope="row">John</th>
-                            <td><span class="bg-primary text-white fw-bold px-1">Actif</span></td>
-                            <td class="text-end">
-                                <button class="btn btn-secondary rounded-0 text-white" data-bs-toggle="modal"
-                                    data-bs-target="#userCommentsModal"><img src="../../assets/img/SVG/comment.svg"
-                                        width="20" height="20" alt="Voir commentaires"></button>
-                                <button class="btn bg-danger ms-2 rounded-0 text-white" data-bs-toggle="modal"
-                                    data-bs-target="#suspendUserModal"><img class="icon-white"
-                                        src="../../assets/img/SVG/ban.svg" width="20" height="20"
-                                        alt="Suspendre utilisateur "></button>
-                            </td>
-                        </tr>
                     </tbody>
                 </table>
+            </div>
+            <div class="col-12 d-flex justify-content-center align-items-center mt-4">
+                <button class="btn btn-main me-2 px-2 py-1" (click)="previousPage()"
+                    [disabled]="!currentParams.prevPage"><img class="icon-white" src="../../assets/img/SVG/previous.svg"
+                        width="20" height="20" alt="Page précédente"></button>
+                <p class="fw-bold mb-0 px-2">{{ currentParams.page }}</p>
+                <button class="btn btn-main ms-2 px-2 py-1" (click)="nextPage()"
+                    [disabled]="!currentParams.nextPage"><img class="icon-white" src="../../assets/img/SVG/next.svg"
+                        width="20" height="20" alt="Page suivante"></button>
+
             </div>
         </div>
     </div>
@@ -86,28 +72,29 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Suspendre John</h5>
+                <h5 class="modal-title">Suspendre {{ userNameSelected }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form>
                     <div class="form-group">
-                        <label for="motif">Motif</label>
-                        <textarea class="form-control" id="motif" rows="2"></textarea>
+                        <label for="reason">Motif</label>
+                        <textarea class="form-control" [formControl]="reason" id="reason" rows="2"></textarea>
                     </div>
                     <div class="form-group">
-                        <select class="form-select" aria-label="select ban duration">
+                        <select class="form-select" [formControl]="duration" aria-label="select ban duration">
                             <option selected>Durée</option>
-                            <option value="1 jour">1 jour</option>
-                            <option value="1 semaine">1 semaine</option>
-                            <option value="1 mois">1 mois</option>
-                            <option value="6 mois">6 mois</option>
-                            <option value="1 an">1 an</option>
-                            <option value="indefiniment">Indéfiniment</option>
+                            <option value="1">1 jour</option>
+                            <option value="7">1 semaine</option>
+                            <option value="30">1 mois</option>
+                            <option value="182">6 mois</option>
+                            <option value="365">1 an</option>
+                            <option value="-1">Indéfiniment</option>
                         </select>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <button type="button" class="btn btn-main" data-bs-dismiss="modal">Valider</button>
+                        <button type="button" (click)="banUser()" class="btn btn-main"
+                            data-bs-dismiss="modal">Valider</button>
                         <button type="button" class="btn btn-secondary rounded-0 ms-2" data-bs-dismiss="modal">Annuler
                         </button>
                     </div>
@@ -123,12 +110,14 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title text-center">Voulez-vous vraiment réactiver le compte de John ?</h5>
+                <h5 class="modal-title text-center">Voulez-vous vraiment réactiver le compte de {{ userNameSelected }} ?
+                </h5>
             </div>
             <div class="modal-body">
                 <form>
                     <div class="d-flex justify-content-center">
-                        <button type="button" class="btn btn-main" data-bs-dismiss="modal">Oui</button>
+                        <button (click)="unbanUser()" type="button" class="btn btn-main"
+                            data-bs-dismiss="modal">Oui</button>
                         <button type="button" class="btn btn-secondary rounded-0 ms-2" data-bs-dismiss="modal">Non
                         </button>
                     </div>
@@ -145,77 +134,44 @@
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Commentaires de John</h5>
+                <h5 class="modal-title">Commentaires de {{ userNameSelected }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="row align-items-center">
-                    <div class="col-sm-4 col-lg-2">
-                        <img src="../../assets/img/noimage.png" class="img-fluid d-none d-sm-block">
-                        <button class="btn btn-danger rounded-0 w-100 mt-xs-0 mt-sm-2 d-block d-lg-none">
-                            Supprimer
-                        </button>
-                    </div>
-                    <div class="col-sm-8 col-lg-9">
-                        <div class="comment">
-                            <p class="fw-bold">Titre animé <small class="fw-normal">21/05/2022</small></p>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec bibendum purus. Sed
-                                vitae molestie magna. Morbi ac vulputate purus, vel tincidunt dolor. Fusce elementum
-                                quis felis quis aliquet.
-                            </p>
+                <p *ngIf="userComments.length == 0">Cet utilisateur n'a pas laissé de commentaire</p>
+                <div *ngFor="let comment of userComments">
+
+                    <div class="row align-items-center">
+                        <div class="col-sm-4 col-lg-2">
+                            <img *ngIf="comment.anime.poster_path"
+                                src="https://image.tmdb.org/t/p/w500{{comment.anime.poster_path}}"
+                                class="img-fluid d-none d-sm-block" alt="Image de l'anime {{comment.anime.name}}">
+                            <img *ngIf="!comment.anime.poster_path" src="assets/img/noimage.png"
+                                class="img-fluid d-none d-sm-block" alt="Image non trouvée">
+
+                            <button (click)="deleteComment(comment._id)"
+                                class="btn btn-danger rounded-0 w-100 mt-xs-0 mt-sm-2 d-block d-lg-none">
+                                Supprimer
+                            </button>
+                        </div>
+                        <div class="col-sm-8 col-lg-9">
+                            <div class="comment">
+                                <p class="fw-bold">{{ comment.anime.name }} <small class="fw-normal">{{
+                                        comment.created_at |
+                                        date:'dd/MM/yyyy'
+                                        }}</small>
+                                </p>
+                                <p>{{ comment.content }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="d-none d-lg-block col-lg-1">
+                            <button (click)="deleteComment(comment._id)" class="btn btn-danger rounded-0">
+                                <img src="../../assets/img/SVG/delete.svg" width="20" height="20" class="img-fluid">
+                            </button>
                         </div>
                     </div>
-                    <div class="d-none d-lg-block col-lg-1">
-                        <button class="btn btn-danger rounded-0">
-                            <img src="../../assets/img/SVG/delete.svg" width="20" height="20" class="img-fluid">
-                        </button>
-                    </div>
-                </div>
-                <hr>
-                <div class="row align-items-center">
-                    <div class="col-sm-4 col-lg-2">
-                        <img src="../../assets/img/noimage.png" class="img-fluid d-none d-sm-block">
-                        <button class="btn btn-danger rounded-0 w-100 mt-xs-0 mt-sm-2 d-block d-lg-none">
-                            Supprimer
-                        </button>
-                    </div>
-                    <div class="col-sm-8 col-lg-9">
-                        <div class="comment">
-                            <p class="fw-bold">Titre animé <small class="fw-normal">21/05/2022</small></p>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec bibendum purus. Sed
-                                vitae molestie magna. Morbi ac vulputate purus, vel tincidunt dolor. Fusce elementum
-                                quis felis quis aliquet.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="d-none d-lg-block col-lg-1">
-                        <button class="btn btn-danger rounded-0">
-                            <img src="../../assets/img/SVG/delete.svg" width="20" height="20" class="img-fluid">
-                        </button>
-                    </div>
-                </div>
-                <hr>
-                <div class="row align-items-center">
-                    <div class="col-sm-4 col-lg-2">
-                        <img src="../../assets/img/noimage.png" class="img-fluid d-none d-sm-block">
-                        <button class="btn btn-danger rounded-0 w-100 mt-xs-0 mt-sm-2 d-block d-lg-none">
-                            Supprimer
-                        </button>
-                    </div>
-                    <div class="col-sm-8 col-lg-9">
-                        <div class="comment">
-                            <p class="fw-bold">Titre animé <small class="fw-normal">21/05/2022</small></p>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec bibendum purus. Sed
-                                vitae molestie magna. Morbi ac vulputate purus, vel tincidunt dolor. Fusce elementum
-                                quis felis quis aliquet.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="d-none d-lg-block col-lg-1">
-                        <button class="btn btn-danger rounded-0">
-                            <img src="../../assets/img/SVG/delete.svg" width="20" height="20" class="img-fluid">
-                        </button>
-                    </div>
+                    <hr>
                 </div>
             </div>
 
