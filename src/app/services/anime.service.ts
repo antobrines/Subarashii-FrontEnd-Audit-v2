@@ -113,7 +113,7 @@ export class AnimeService {
         const params = {
             params: search,
         };
-        const get$ = this.http.get(environment.apiAnimeUrl + '/' + url, params);
+        const get$ = this.http.get(environment.apiAnimeUrl + url, params);
         const data = await firstValueFrom(get$);
         return data;
     }

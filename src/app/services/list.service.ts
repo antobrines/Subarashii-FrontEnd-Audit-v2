@@ -11,13 +11,20 @@ export class ListService {
     constructor(private http: HttpClient, private responseS: ResponseService) {
     }
 
-    async getMyList() {
+    async getMyList(animeId = 0) {
         try {
-            const $get = this.http.get(environment.backUrl + 'lists');
+            let $get
+            if(animeId > 0) {
+                $get = this.http.get(environment.backUrl + 'lists?containing=' + animeId);
+            }else{
+                $get = this.http.get(environment.backUrl + 'lists');
+            }
             const data: any = await firstValueFrom($get);
             return data.body;
-        } catch (error) {
-            return this.responseS.ErrorF(error);
+        } catch (error:any) {
+            if(!(error.error.body === "TypeError: Cannot read properties of null (reading 'list')")){
+                return this.responseS.ErrorF(error);
+            }
         }
     }
 
@@ -43,11 +50,11 @@ export class ListService {
                 animeCategories: categories.map(String)
             };
             
-            const $patch = this.http.patch(
+            const $post = this.http.post(
                 environment.backUrl + 'lists/' + idList + '/anime/add',
                 json,
             );
-            const res = await firstValueFrom($patch);
+            const res = await firstValueFrom($post);
             this.responseS.SuccessF(res);
             return true;
         } catch (error) {
@@ -65,17 +72,22 @@ export class ListService {
         }
     }
 
-    async changeStateViewEpisode(idAnime: number, idEpisode: number) {
+    async changeStateViewEpisode(idAnime: number, idEpisode: number,idList: number,isSeen: boolean) {
         try {
-            const put$ = this.http.put(
+
+            let seeOrUnsee = (isSeen ? '/unsee/' :  '/see/')
+
+            const patch$ = this.http.patch(
                 environment.backUrl +
-                'views/animes/' +
+                'lists/' + 
+                idList +
+                '/anime/' +
                 idAnime +
-                '/episodes/' +
-                idEpisode,
-                null
-            );
-            const data: any = await firstValueFrom(put$);
+                seeOrUnsee,
+                {"episodeId" : idEpisode},
+            )
+
+            const data: any = await firstValueFrom(patch$);
             return data.body;
         } catch (error) {
             return this.responseS.ErrorF(error);
