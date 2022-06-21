@@ -1,26 +1,28 @@
 name: Node.js CI
-on: pull_request
+on: [pull_request]
 jobs:
-  install:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [16.x]
-    steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-      
   cypress-run:
     runs-on: ubuntu-20.04
-    needs: install
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
       - name: Cypress run
         uses: cypress-io/github-action@v4
         with:
+          install-command: npm i --force
+          working-directory: app
+          browser: chrome
           config: pageLoadTimeout=100000,baseUrl=https://subarashii-front-end-audit-v2-mido57iq6-antobrines.vercel.app/login
+
+      - uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: app/cypress/screenshots
+
+      - uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: cypress-videos
+          path: app/cypress/videos
