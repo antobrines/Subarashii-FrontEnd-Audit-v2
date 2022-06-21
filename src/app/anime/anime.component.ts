@@ -53,7 +53,12 @@ export class AnimeComponent implements OnInit {
                 episodes: [],
             });
         }
-        this.episodesView = Array.from(this.anime.episodesWatched,Number);
+
+        if(this.anime.hasOwnProperty('episodesWatched')){
+            this.episodesView = Array.from(this.anime.episodesWatched,Number);
+        }else{
+            this.episodesView = []
+        }
         this.genres = this.animeS.genres.filter((localGenre) => {
             return this.anime.genres.some((animeGenre:any) => animeGenre.id === localGenre.idApi);
         });

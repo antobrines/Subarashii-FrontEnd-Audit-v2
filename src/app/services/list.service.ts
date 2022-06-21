@@ -21,8 +21,10 @@ export class ListService {
             }
             const data: any = await firstValueFrom($get);
             return data.body;
-        } catch (error) {
-            return this.responseS.ErrorF(error);
+        } catch (error:any) {
+            if(!(error.error.body === "TypeError: Cannot read properties of null (reading 'list')")){
+                return this.responseS.ErrorF(error);
+            }
         }
     }
 
