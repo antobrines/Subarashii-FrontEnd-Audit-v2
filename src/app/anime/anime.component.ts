@@ -44,7 +44,6 @@ export class AnimeComponent implements OnInit {
 
     async ngOnInit() {
         const data: any = await this.animeS.get(this.idAnime);
-        console.log(data)
         this.anime = data.body;
         this.addTag()
 
@@ -61,7 +60,6 @@ export class AnimeComponent implements OnInit {
         this.mappedGenres = this.genres.map(genre => {return {id: genre.idApi}})
 
         await this.getMyList();
-        console.log(this.userLists)
         this.myAnimeIdSeeList = await this.listS.myAnimeIdSeeList();
         this.router.events.subscribe((evt) => {
             if (evt instanceof NavigationEnd) {
