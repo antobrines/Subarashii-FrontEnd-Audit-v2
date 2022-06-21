@@ -22,9 +22,9 @@ jobs:
     - name: Build the source code
       run: npm run build
       with:
-          name: build
-          if-no-files-found: error
-          path: build
+        name: build
+        if-no-files-found: error
+        path: build
     - name: Download Cypress artifacts
       uses: actions/download-artifact@v2
       with:
