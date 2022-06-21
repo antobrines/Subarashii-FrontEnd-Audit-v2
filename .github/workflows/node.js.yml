@@ -31,6 +31,7 @@ jobs:
         with:
           runTests: false
       - name: Run CRA Build
+        uses: actions/checkout@v3
         run: npm run build
       - name: Save Cypress artifacts
         uses: actions/upload-artifact@v3
